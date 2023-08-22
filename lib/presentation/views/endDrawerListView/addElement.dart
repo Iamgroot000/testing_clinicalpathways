@@ -258,8 +258,7 @@ class EndDrawerForAddElement extends GetWidget<HomeController> {
                                           padding:
                                           const EdgeInsets.all(8.0),
                                           child: Column(
-                                            crossAxisAlignment:
-                                            CrossAxisAlignment.start,
+                                            crossAxisAlignment: CrossAxisAlignment.start,
                                             children: [
                                               const Text(
                                                 'Add flavour',
@@ -276,9 +275,7 @@ class EndDrawerForAddElement extends GetWidget<HomeController> {
                                                     .clinicalPathwayFlavourCategoriesList
                                                     .flavourList,
                                                 onChanged: (val) {
-                                                  controller
-                                                      .selectedFlavour
-                                                      .value = val;
+                                                  controller.selectedFlavour.value = val;
                                                 },
                                                 valueFn: (i, v) => v,
                                                 labelFn: (i, v) => v,

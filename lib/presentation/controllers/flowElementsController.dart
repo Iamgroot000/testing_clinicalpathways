@@ -239,6 +239,12 @@ class FlowElement extends GetxController {
     update();
   }
 
+  /// SET GROUP NAME
+  setFlavourName(String flavourName) {
+    this.selectedFlavour = flavourName;
+    update();
+  }
+
   setGroupIndex(int index) {
     this.groupIndex = index;
     update();

@@ -1,6 +1,4 @@
 
-
-import 'package:testing_clinicalpathways/domain/entities/clinicalPathwayFlavourCategories.dart';
 import 'package:testing_clinicalpathways/domain/entities/clinicalPathwayCategoriesEntity.dart';
 import 'package:testing_clinicalpathways/domain/entities/genderGroupsStandard.dart';
 import 'package:testing_clinicalpathways/domain/entities/ageGroupVariables.dart';
@@ -36,7 +34,6 @@ class HomeUseCase {
   Future<ClinicalPathwayFlavourCategoriesItem> loadGeneralVariablesClinicalPathwayFlavourCategories() async {
     return await homeRepositoryInterface.generalVariablesClinicalPathwayFlavourCategories();
   }
-
 
 
 

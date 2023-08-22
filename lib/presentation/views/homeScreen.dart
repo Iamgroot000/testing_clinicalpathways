@@ -181,7 +181,6 @@ class HomeScreen extends GetView<HomeController> {
         return const EndDrawerForAddElement();
     }
   }
-
   /// Display a drop down menu when tapping on a handler
   _displayHandlerMenu(Offset position, Handler handler, FlowElement element, BuildContext context) {
     StarMenuOverlay.displayStarMenu(

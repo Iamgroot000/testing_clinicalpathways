@@ -1,5 +1,4 @@
 import 'dart:math';
-
 import 'package:testing_clinicalpathways/domain/entities/clinicalPathwayCategoriesEntity.dart';
 import 'package:testing_clinicalpathways/domain/entities/flowChartEntities/elementShapeEntity.dart';
 import 'package:testing_clinicalpathways/domain/entities/genderGroupsStandard.dart';
@@ -9,8 +8,6 @@ import 'package:testing_clinicalpathways/presentation/controllers/dashboardContr
 import 'package:testing_clinicalpathways/presentation/routes/AppRoutes.dart';
 import 'package:testing_clinicalpathways/presentation/views/presentationLayerConnectors.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-
-import '../../domain/entities/clinicalPathwayFlavourCategories.dart';
 
 class HomeController extends GetxController {
   /// FIREBASE INSTANCE IN THE HOME SCREEN
@@ -26,6 +23,7 @@ class HomeController extends GetxController {
   RxString groupName = "".obs;
   RxDouble start = 0.0.obs;
   RxDouble end = 0.0.obs;
+
 
   /// TODO ADD ELEMENT
   RxString selectedMode = "".obs;
@@ -165,7 +163,7 @@ class HomeController extends GetxController {
     loadAgeGroups();
     loadClinicalPathwayCategories();
     loadGenderGroupStandard();
-    loadFlavourCategories();
+    loadClinicalPathwayFlavourCategories();
     loadFlowcharts();
     update();
   }
@@ -219,11 +217,16 @@ class HomeController extends GetxController {
     return genderGroupStandardList.value;
   }
 
-  ///LOAD FLAVOURS GROUP FROM THE FIREBASE
-  Future<ClinicalPathwayFlavourCategoriesItem> loadFlavourCategories() async {
-    clinicalPathwayFlavourCategoriesList = await homeUseCase.loadGeneralVariablesClinicalPathwayFlavourCategories();
+
+
+  /// LOAD CLINICAL CATEGORIES WHICH IS STORED IN THE FIREBASE
+  Future<ClinicalPathwayFlavourCategoriesItem> loadClinicalPathwayFlavourCategories() async {
+    clinicalPathwayFlavourCategoriesList =
+    await homeUseCase.loadGeneralVariablesClinicalPathwayFlavourCategories();
+    update();
     return clinicalPathwayFlavourCategoriesList;
   }
+
 
   /// CHECK FOR THE FLOW CHART NAME IS IT AVAILABLE OR NOT
   isFlowchartNameAvailable({String? flowchartName}) async {
@@ -275,8 +278,9 @@ class HomeController extends GetxController {
       elements: [],
       priority: homeEntityList.length,
       isReferred: false,
-      clinicalPathwayCategoriesItem: ClinicalPathwayCategoriesItem(categoryList: [selectedCategory.value]),
+      clinicalPathwayCategoriesItem: ClinicalPathwayCategoriesItem(categoryList:[selectedCategory.value]),
       clinicalPathwayFlavourCategoriesItem: ClinicalPathwayFlavourCategoriesItem(flavourList:[selectedFlavour.value]),
+      // clinicalPathwayFlavourCategoriesItem: ClinicalPathwayFlavourCategoriesItem(flavourList: [selectedFlavour.value]),
       genderGroupStandardItem : GenderGroupStandardItem(genderGroupList: selectedGenders.value),
       ageGroupItemList: ageGroups ?? [],
     ));
@@ -629,13 +633,9 @@ class HomeController extends GetxController {
   /// PRE SELECTED METHOD FOR LOAD PRE SELECTED ELEMENTS FROM DASHBOARD TO ELEMNET LEVEL
   loadDataFromDashboard(DashboardEntity dashboardEntity) {
     List<AgeGroupItem> ageGroups = [];
-    selectedCategory.value =
-
-    dashboardEntity.clinicalPathwayCategoriesItem!.categoryList[0];
-    selectedFlavour.value =
-    dashboardEntity.clinicalPathwayFlavourCategoriesItem!.flavourList[0];
-    selectedGenders.value =
-        dashboardEntity.genderGroupStandardItem!.genderGroupList;
+    selectedCategory.value = dashboardEntity.clinicalPathwayCategoriesItem!.categoryList[0];
+    // selectedFlavour.value = dashboardEntity.clinicalPathwayFlavourCategoriesItem!.flavourList[0];
+    selectedGenders.value = dashboardEntity.genderGroupStandardItem!.genderGroupList;
     ageGroups = dashboardEntity.ageGroupItemList ?? [];
     for (AgeGroupItem ageGroup in ageGroups) {
       selectedAges.value.add(ageGroup.groupName!);

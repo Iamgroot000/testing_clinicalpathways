@@ -9,7 +9,7 @@ class AppConst {
   static const String ageGroupsDocumentName = "ageGroupsStandard";
   static const String clinicalPathwayCategories = "clinicalPathwayCategories";
   static const String genderGroupStandard = "genderGroupStandard";
-  static const String flavours = "flavourGroupStandard";
+  static const String flavours = "flavours";
 
   static const String appTitle = "Clinical Pathways";
   static const String login = "Login";

@@ -7,8 +7,6 @@ import 'package:testing_clinicalpathways/domain/entities/genderGroupsStandard.da
 import 'package:testing_clinicalpathways/presentation/views/presentationLayerConnectors.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-import 'ClinicalPathwayFlavourCategories.dart';
-
 DashboardEntity homeEntityFromJson(String str) =>
     DashboardEntity.fromJson(json.decode(str));
 
@@ -101,6 +99,7 @@ class DashboardEntity {
         // 'genderGroupStandardItem': genderGroupStandardItem,
         // 'ageGroupItemList': ageGroupItemList
         'clinicalPathwayCategoriesItem': clinicalPathwayCategoriesItem?.toJson(),
+        'clinicalPathwayFlavourCategoriesItem': clinicalPathwayFlavourCategoriesItem?.toJson(),
         'genderGroupStandardItem': genderGroupStandardItem?.toJson(),
         'ageGroupItemList': ageGroupItemList?.map((e) => e.toJson()).toList(),
       };
