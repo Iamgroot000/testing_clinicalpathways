@@ -33,8 +33,6 @@
 //
 //
 
-
-
 import 'dart:convert';
 
 ClinicalPathwayFlavourCategoriesItem clinicalPathwayFlavourCategoriesItemFromJson(String str) =>

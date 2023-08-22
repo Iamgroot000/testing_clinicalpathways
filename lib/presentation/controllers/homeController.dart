@@ -794,7 +794,6 @@ class HomeController extends GetxController {
       Fluttertoast.showToast(msg: "Options must be more than 2", timeInSecForIosWeb: 2);
     }
   }
-
   /// SELECT ALL THE AGE GROUP BY SELECT ALL ICONS
   selectAllAgeGroups(){
     List<String> allAgeGroupNames =
@@ -804,8 +803,6 @@ class HomeController extends GetxController {
     selectedAges.value =allAgeGroupNames;
     update();
   }
-
-
   /// ADD CATEGORY ON PRESS ON THE SUBMIT BUTTON
   addAgeCategories(){
     /// Handle button press

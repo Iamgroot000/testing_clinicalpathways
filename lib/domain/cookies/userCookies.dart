@@ -36,7 +36,6 @@ class UserCookies {
     html.document.cookie = cookie;
   }
 
-
   Future<UserCookiesModel> getCookie() async {
     print("TESTING COOKIES INIT RECIEVE ${html.document.cookie}");
     final cookies = html.document.cookie != null && html.document.cookie != '' ? html.document.cookie?.split('-') : '-'.split('-');

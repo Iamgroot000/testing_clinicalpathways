@@ -2,7 +2,6 @@ import 'dart:convert';
 
 import 'package:testing_clinicalpathways/domain/entities/flowChartEntities/arrowParameters.dart';
 
-
 class ConnectionParams {
   final String destElementId;
   final ArrowParams arrowParams;
