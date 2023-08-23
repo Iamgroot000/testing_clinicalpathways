@@ -14,6 +14,7 @@ class HomeController extends GetxController {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
   final HomeUseCase homeUseCase;
+
   HomeController(this.homeUseCase);
 
   /// LIST OF COPIES OF SHAPES
@@ -63,9 +64,12 @@ class HomeController extends GetxController {
   List<DashboardEntity> homeEntityList = [];
   List<AgeGroupItem> ageGroupItemList = [];
   List<AgeGroupItem> ageGroupItemListForElement = [];
-  ClinicalPathwayCategoriesItem clinicalPathwayCategoriesList = ClinicalPathwayCategoriesItem(categoryList: []);
-  ClinicalPathwayFlavourCategoriesItem clinicalPathwayFlavourCategoriesList = ClinicalPathwayFlavourCategoriesItem(flavourList: []);
-  Rx<GenderGroupStandardItem> genderGroupStandardList = GenderGroupStandardItem(genderGroupList: []).obs;
+  ClinicalPathwayCategoriesItem clinicalPathwayCategoriesList = ClinicalPathwayCategoriesItem(
+      categoryList: []);
+  ClinicalPathwayFlavourCategoriesItem clinicalPathwayFlavourCategoriesList = ClinicalPathwayFlavourCategoriesItem(
+      flavourList: []);
+  Rx<GenderGroupStandardItem> genderGroupStandardList = GenderGroupStandardItem(
+      genderGroupList: []).obs;
 
 
   /// CHECK FOR THE SELECTED INDEX VALUE
@@ -124,13 +128,15 @@ class HomeController extends GetxController {
   final TextEditingController maxLimitForNumber = TextEditingController();
 
   /// TEXT FIELD CONTROLLER FOR THE OPTION AND MULTI OPTIONS
-  RxList<TextEditingController> optionTextController = [TextEditingController()].obs;
+  RxList<TextEditingController> optionTextController = [TextEditingController()]
+      .obs;
 
   /// NAVIGATION FLOW CHART NAME FOR CONNECTOR ELEMENT
   RxString dashboards = ''.obs;
 
   /// FILL THE FLOWCHART NAME AND FLOWCHART ID IN EACH ELEMENT OF THE CONNECTOR
-  DashboardEntity _dashboardEntity = DashboardEntity(flowchartName: "", flowchartId: "");
+  DashboardEntity _dashboardEntity = DashboardEntity(
+      flowchartName: "", flowchartId: "");
 
   /// FILL THE START ID IN THE CONNECTOR SHAPE ELEMENT
   RxString startId = "".obs;
@@ -218,9 +224,9 @@ class HomeController extends GetxController {
   }
 
 
-
   /// LOAD CLINICAL CATEGORIES WHICH IS STORED IN THE FIREBASE
-  Future<ClinicalPathwayFlavourCategoriesItem> loadClinicalPathwayFlavourCategories() async {
+  Future<
+      ClinicalPathwayFlavourCategoriesItem> loadClinicalPathwayFlavourCategories() async {
     clinicalPathwayFlavourCategoriesList =
     await homeUseCase.loadGeneralVariablesClinicalPathwayFlavourCategories();
     update();
@@ -259,10 +265,6 @@ class HomeController extends GetxController {
 
     addHomeEntityButtonLoading.value = true;
 
-
-    ///Add flavour data in firestore
-
-
     /// UNIQUE FLOW ID IN THE FIREBASE
     String uniqueDashboardId = random.nextInt(1000000).toString();
 
@@ -282,10 +284,10 @@ class HomeController extends GetxController {
       elements: [],
       priority: homeEntityList.length,
       isReferred: false,
-      clinicalPathwayCategoriesItem: ClinicalPathwayCategoriesItem(categoryList:[selectedCategory.value]),
-      clinicalPathwayFlavourCategoriesItem: ClinicalPathwayFlavourCategoriesItem(flavourList:[selectedFlavour.value]),
-      // clinicalPathwayFlavourCategoriesItem: ClinicalPathwayFlavourCategoriesItem(flavourList: [selectedFlavour.value]),
-      genderGroupStandardItem : GenderGroupStandardItem(genderGroupList: selectedGenders.value),
+      clinicalPathwayCategoriesItem:
+      ClinicalPathwayCategoriesItem(categoryList: [selectedCategory.value]),
+      genderGroupStandardItem:
+      GenderGroupStandardItem(genderGroupList: selectedGenders.value),
       ageGroupItemList: ageGroups ?? [],
     ));
 
@@ -294,9 +296,11 @@ class HomeController extends GetxController {
       flowchartNameController.clear();
       errorMessage.value = "";
       addHomeEntityButtonLoading.value = false;
+
       Get.back();
     }
   }
+
 
   /// EXPENDED CONTAINER UPDATE VALUES
   toggleExpanded() {
@@ -435,10 +439,10 @@ class HomeController extends GetxController {
   }
 
   /// SHOWING THE OPTION ADDING CONTAINER
-  updateIsExtented({required bool isExtented,required bool isOptionsDialog}) {
+  updateIsExtented({required bool isExtented, required bool isOptionsDialog}) {
     isExtended.value = isExtented;
     this.isOptionsDialog.value = isOptionsDialog;
-    if(!isOptionsDialog){
+    if (!isOptionsDialog) {
       updateListOfAgeGroupItems();
     }
     update();
@@ -495,12 +499,14 @@ class HomeController extends GetxController {
   }
 
   /// RESET FOR SELECTION MODE FOR NUMBERIC TO TEXT FIELD (CLEARING THE RANGE VALUES AND SAME FOR THE OPTIONS AND MULIOPTIONS )
-  resetForSelectionMode(){
-    debugPrint( " try :> ${selectedMode.value}");
-    if(!(selectedMode.value.compareTo("isNumeric") == 0)){
-      selectedLength.value = [{'min': "", 'max':"",'length':"",'pattern':''}];
+  resetForSelectionMode() {
+    debugPrint(" try :> ${selectedMode.value}");
+    if (!(selectedMode.value.compareTo("isNumeric") == 0)) {
+      selectedLength.value =
+      [{'min': "", 'max': "", 'length': "", 'pattern': ''}];
     }
-    else if (!(selectedMode.value.compareTo("isOptions") == 0 || selectedMode.value.compareTo("isMultiOptions") == 0)){
+    else if (!(selectedMode.value.compareTo("isOptions") == 0 ||
+        selectedMode.value.compareTo("isMultiOptions") == 0)) {
       options.value = [''];
     }
     update();
@@ -530,7 +536,7 @@ class HomeController extends GetxController {
     }
 
     /// CREATE A NEW ELEMENT
-    if(isNewElement.value) {
+    if (isNewElement.value) {
       dashboard.addElement(FlowElement(
         //adding a new element
         position: customPosition.value,
@@ -555,17 +561,18 @@ class HomeController extends GetxController {
         isPregnancy: isPregnancy.value,
       ));
     }
+
     /// UPDATE THE ELEMENT WITH THE ALL THE THINGS
     else {
       // Update an existing element
       int elementIndex = dashboard.findElementIndexById(flowElementId.value);
       if (elementIndex >= 0) {
         FlowElement existingElement = dashboard.elements[elementIndex];
-        existingElement.size=selectedShapeEntity.flowElement!.size;
+        existingElement.size = selectedShapeEntity.flowElement!.size;
         existingElement.text = questionTxt.value ?? "";
         existingElement.range = selectedLength.value;
         existingElement.kind = selectedShapeEntity!.flowElement!.kind;
-        existingElement.handlers=selectedShapeEntity.flowElement!.handlers;
+        existingElement.handlers = selectedShapeEntity.flowElement!.handlers;
         existingElement.selectedMode = selectedMode.value ?? '';
         existingElement.options = options.value.join("#") ?? '';
         existingElement.selectedGroup = selectedCategory.value ?? '';
@@ -575,10 +582,11 @@ class HomeController extends GetxController {
         existingElement.genderGroup = selectedGenders.value ?? [];
         existingElement.startId = startId.value;
         existingElement.endId = endId.value;
-        existingElement.flowId = homeEntityList[selectedIndex.value].flowchartId;
+        existingElement.flowId =
+            homeEntityList[selectedIndex.value].flowchartId;
         existingElement.navigationId = _dashboardEntity.flowchartId;
-        existingElement.isFollowUp= isFollowUp.value;
-        existingElement.isPregnancy=isPregnancy.value;
+        existingElement.isFollowUp = isFollowUp.value;
+        existingElement.isPregnancy = isPregnancy.value;
         dashboard.elements[elementIndex] = existingElement;
         dashboard.refreshUi();
       }
@@ -628,8 +636,8 @@ class HomeController extends GetxController {
     errorMessage.value = '';
     isOptionsDialog = true.obs;
     ageGroupList.value.clear();
-    isFollowUp=false.obs;
-    isPregnancy=false.obs;
+    isFollowUp = false.obs;
+    isPregnancy = false.obs;
     // selectedShapeEntity = null;
     update();
   }
@@ -637,9 +645,11 @@ class HomeController extends GetxController {
   /// PRE SELECTED METHOD FOR LOAD PRE SELECTED ELEMENTS FROM DASHBOARD TO ELEMNET LEVEL
   loadDataFromDashboard(DashboardEntity dashboardEntity) {
     List<AgeGroupItem> ageGroups = [];
-    selectedCategory.value = dashboardEntity.clinicalPathwayCategoriesItem!.categoryList[0];
+    selectedCategory.value =
+    dashboardEntity.clinicalPathwayCategoriesItem!.categoryList[0];
     // selectedFlavour.value = dashboardEntity.clinicalPathwayFlavourCategoriesItem!.flavourList[0];
-    selectedGenders.value = dashboardEntity.genderGroupStandardItem!.genderGroupList;
+    selectedGenders.value =
+        dashboardEntity.genderGroupStandardItem!.genderGroupList;
     ageGroups = dashboardEntity.ageGroupItemList ?? [];
     for (AgeGroupItem ageGroup in ageGroups) {
       selectedAges.value.add(ageGroup.groupName!);
@@ -694,7 +704,8 @@ class HomeController extends GetxController {
 
 
   /// OPEN END DRAWER ON PRESSING ON THE SCREEN DASHBOARD
-  updatePositionAndEnableDrawer({required bool enable, required Offset position}) {
+  updatePositionAndEnableDrawer(
+      {required bool enable, required Offset position}) {
     showAddElementDrawer.value = enable;
     customPosition.value = position;
     debugPrint("THIS IS CHECK ${showAddElementDrawer.value} $position");
@@ -702,72 +713,76 @@ class HomeController extends GetxController {
   }
 
   /// VALIDATION FIELD IN THE ADD ELEMENT FIELDS
-  String validationForAddingElement(){
+  String validationForAddingElement() {
     String msg = "";
-    errorMessage.value="";
-    if(globals.elementShapesList[selectedIndexForElement.value].flowElementName?.compareTo(AppConst.connectorElement) == 0){
-      if(questionTxt.value.isEmpty){
-        msg +="Select Navigation FlowChart element";
-        errorMessage.value =msg;
+    errorMessage.value = "";
+    if (globals.elementShapesList[selectedIndexForElement.value].flowElementName
+        ?.compareTo(AppConst.connectorElement) == 0) {
+      if (questionTxt.value.isEmpty) {
+        msg += "Select Navigation FlowChart element";
+        errorMessage.value = msg;
         update();
         return msg;
       }
-    }else{
-      if(questionTxt.value.isEmpty){
-        msg +="Select Question Text";
-        errorMessage.value =msg;
+    } else {
+      if (questionTxt.value.isEmpty) {
+        msg += "Select Question Text";
+        errorMessage.value = msg;
         update();
         return msg;
       }
-      if(elementTextController.text.isEmpty){
-        msg +="Select Question Category";
-        errorMessage.value =msg;
+      if (elementTextController.text.isEmpty) {
+        msg += "Select Question Category";
+        errorMessage.value = msg;
         update();
         return msg;
       }
     }
-    if(selectedGenders.value.isEmpty ){
-      msg +="\nSelect Genders";
-      errorMessage.value =msg;
+    if (selectedGenders.value.isEmpty) {
+      msg += "\nSelect Genders";
+      errorMessage.value = msg;
       update();
       return msg;
     }
-    if(selectedAges.value.isEmpty ){
-      msg +="Select Age Groups";
-      errorMessage.value =msg;
+    if (selectedAges.value.isEmpty) {
+      msg += "Select Age Groups";
+      errorMessage.value = msg;
       update();
       return msg;
     }
-    if(globals.elementShapesList[selectedIndexForElement.value].typeMode.isNotEmpty && (selectedMode.value.isEmpty)){
-      msg +="Select Any selection mode for the Question";
-      errorMessage.value =msg;
+    if (globals.elementShapesList[selectedIndexForElement.value].typeMode
+        .isNotEmpty && (selectedMode.value.isEmpty)) {
+      msg += "Select Any selection mode for the Question";
+      errorMessage.value = msg;
       update();
       return msg;
     }
-    if((selectedMode.value.compareTo("isNumeric") == 0)){
-      if((startController.text.isEmpty || endController.text.isEmpty) && (maxController.text.isEmpty) && (patternController.text.isEmpty)){
-        msg +="For numeric mode Atleast one of the options is required";
-        errorMessage.value =msg;
+    if ((selectedMode.value.compareTo("isNumeric") == 0)) {
+      if ((startController.text.isEmpty || endController.text.isEmpty) &&
+          (maxController.text.isEmpty) && (patternController.text.isEmpty)) {
+        msg += "For numeric mode Atleast one of the options is required";
+        errorMessage.value = msg;
         update();
         return msg;
       }
     }
-    if((selectedMode.value.compareTo("isOptions") == 0 || selectedMode.value.compareTo("isMultiOptions") == 0)){
-      if(options.value.length <2){
+    if ((selectedMode.value.compareTo("isOptions") == 0 ||
+        selectedMode.value.compareTo("isMultiOptions") == 0)) {
+      if (options.value.length < 2) {
         msg += 'Atleast 2 option should be entered for the Options';
-        errorMessage.value =msg;
+        errorMessage.value = msg;
         update();
         return msg;
       }
     }
-    errorMessage.value =msg;
+    errorMessage.value = msg;
     update();
     return msg;
   }
 
 
   /// ADD START AND END AGE GROUP IN THE ALERT DIALOG BOX HOME SCREEN
-  addAgeGroupWithStartAndEndAgeOnPressButtonAdd(BuildContext context){
+  addAgeGroupWithStartAndEndAgeOnPressButtonAdd(BuildContext context) {
     if ((groupName.value != null && groupName.value.isNotEmpty) &&
         (start.value != null) &&
         (end.value != null && end.value != 0)) {
@@ -786,8 +801,9 @@ class HomeController extends GetxController {
   }
 
   /// ADDING OPTION ONPRESSED FUNCTION
-  addOptionsInElement(){
-    List<String> enteredOptions = optionTextController.value.map((controller) => controller.text.trim())
+  addOptionsInElement() {
+    List<String> enteredOptions = optionTextController.value.map((controller) =>
+        controller.text.trim())
         .where((text) => text.isNotEmpty)
         .toList();
     print(enteredOptions);
@@ -795,20 +811,23 @@ class HomeController extends GetxController {
       options.value = enteredOptions;
       updateIsExtented(isExtented: false, isOptionsDialog: true);
     } else {
-      Fluttertoast.showToast(msg: "Options must be more than 2", timeInSecForIosWeb: 2);
+      Fluttertoast.showToast(
+          msg: "Options must be more than 2", timeInSecForIosWeb: 2);
     }
   }
+
   /// SELECT ALL THE AGE GROUP BY SELECT ALL ICONS
-  selectAllAgeGroups(){
+  selectAllAgeGroups() {
     List<String> allAgeGroupNames =
     ageGroupItemList!
         .map((item) => item.groupName!)
         .toList();
-    selectedAges.value =allAgeGroupNames;
+    selectedAges.value = allAgeGroupNames;
     update();
   }
+
   /// ADD CATEGORY ON PRESS ON THE SUBMIT BUTTON
-  addAgeCategories(){
+  addAgeCategories() {
     /// Handle button press
     String category = addCategoriesController.text;
 
@@ -820,6 +839,7 @@ class HomeController extends GetxController {
     /// Clear the text field after adding the category
     addCategoriesController.clear();
     update();
+
     ///GET BACK ON PRESS ON THE UPDATE BUTTON
     Get.back();
   }
@@ -850,7 +870,7 @@ class HomeController extends GetxController {
 
 
   /// DELETE ELEMENT FROM THE ADD ELEMENT
-  deleteElement(){
+  deleteElement() {
     dashboard.removeElementById(flowElementId.value);
     resetForDashboard();
     Get.back();
@@ -871,13 +891,14 @@ class HomeController extends GetxController {
 
 
   /// COPY SHAPE PASTE FUNCTION WITH SOME SAME ELEMENT OF IT
-  pasteElement(){
+  pasteElement() {
     for (int i = 0; i < numElements.value; i++) {
       for (final copiedShape in copiedShapes) {
         final incrementedIndex = startingIndex.value + i;
         final incrementedText = copiedShape.text + incrementedIndex.toString();
         final incrementedId = copiedShape.id + incrementedIndex.toString();
-        final incrementedPosition = copiedShape.position + Offset((120 * i) as double, 0);
+        final incrementedPosition = copiedShape.position +
+            Offset((120 * i) as double, 0);
         final newShape = FlowElement(
           size: copiedShape.size,
           backgroundColor: copiedShape.backgroundColor,
@@ -909,9 +930,9 @@ class HomeController extends GetxController {
     ageGroupList.clear();
     debugPrint("selected ages ${selectedAges.value}");
 
-    if(!isNewElement.value) {
-
-      List<AgeGroupItem> elementAgeGroups=dashboard.elements[dashboard.findElementIndexById(flowElementId.value)].ageGroupQuestion;
+    if (!isNewElement.value) {
+      List<AgeGroupItem> elementAgeGroups = dashboard.elements[dashboard
+          .findElementIndexById(flowElementId.value)].ageGroupQuestion;
       bool isAdded = false;
       for (AgeGroupItem ageGroupItem in ageGroupItemList) {
         for (String groupName in selectedAges.value) {
@@ -930,7 +951,7 @@ class HomeController extends GetxController {
         }
         isAdded = false;
       }
-    }else{
+    } else {
       for (AgeGroupItem ageGroupItem in ageGroupItemList) {
         for (String groupName in selectedAges.value) {
           if (ageGroupItem.groupName?.compareTo(groupName) == 0) {
@@ -946,22 +967,24 @@ class HomeController extends GetxController {
 
 
   updateRangeForAgeGroup(index) {
-    ageGroupList.value[index].startRange =startRangeController.text;
-    ageGroupList.value[index].endRange =endRangeController.text;
+    ageGroupList.value[index].startRange = startRangeController.text;
+    ageGroupList.value[index].endRange = endRangeController.text;
     updateListOfAgeGroupItems();
     update();
   }
 
-  customAgeGroupListForElement(){
+  customAgeGroupListForElement() {
     try {
       ageGroupItemListForElement.clear();
       debugPrint('customAgeGroupListForElement');
       if (!isNewElement.value) {
         debugPrint('customAgeGroupListForElement updating');
 
-        List<AgeGroupItem> elementAgeGroups = dashboard.elements[dashboard.findElementIndexById(flowElementId.value)].ageGroupQuestion;
+        List<AgeGroupItem> elementAgeGroups = dashboard.elements[dashboard
+            .findElementIndexById(flowElementId.value)].ageGroupQuestion;
         ageGroupItemListForElement.addAll(elementAgeGroups);
-        debugPrint('customAgeGroupListForElement updating element age group ${elementAgeGroups}');
+        debugPrint(
+            'customAgeGroupListForElement updating element age group ${elementAgeGroups}');
         debugPrint("general ages group: ${ageGroupItemList.length}");
         for (AgeGroupItem ageGroupItem in ageGroupItemList) {
           bool isDuplicate = false;
@@ -984,15 +1007,18 @@ class HomeController extends GetxController {
                 : 1;
           },
         );
-        debugPrint("customAgeGroupListForElement updating element ageGroupItem list :> ${ageGroupItemListForElement}");
+        debugPrint(
+            "customAgeGroupListForElement updating element ageGroupItem list :> ${ageGroupItemListForElement}");
       }
       else {
         debugPrint('customAgeGroupListForElement new element');
         ageGroupItemListForElement.addAll(ageGroupItemList);
       }
-      debugPrint("customAgeGroupListForElement element ageGroupItem list :> ${ageGroupItemListForElement}");
-    }catch(e) {
-      debugPrintStack(label: "error customAgeGroupListForElement:> ${ageGroupItemListForElement}");
+      debugPrint(
+          "customAgeGroupListForElement element ageGroupItem list :> ${ageGroupItemListForElement}");
+    } catch (e) {
+      debugPrintStack(
+          label: "error customAgeGroupListForElement:> ${ageGroupItemListForElement}");
     }
     update();
   }
@@ -1001,10 +1027,12 @@ class HomeController extends GetxController {
     this.isMandatory.value = isMandatory;
     update();
   }
+
   updateIsFollowUp(bool isFollowUp) {
     this.isFollowUp.value = isFollowUp;
     update();
   }
+
   updateIsPregnancy(bool isPregnancy) {
     this.isPregnancy.value = isPregnancy;
     update();
@@ -1022,22 +1050,46 @@ class HomeController extends GetxController {
   }
 
 
-
-
-  updateGenderList(List<String> isGender){
+  updateGenderList(List<String> isGender) {
     selectedGenders.value = isGender;
     selectedGenders.value.removeWhere((gender) => gender.isEmpty);
     update();
   }
 
-  deselectAllAgeGroups(){
+  deselectAllAgeGroups() {
     selectedAges.value = [];
     update();
   }
 
-  updateAgeGroups(List<String> agegroups){
+  updateAgeGroups(List<String> agegroups) {
     selectedAges.value = agegroups;
     update();
   }
 
+
+// var selectedAges = [].obs; // Assuming selectedAges is a List
+// var selectedGenders = [].obs; // Assuming selectedGenders is a List
+// var isMandatory = false.obs; // Assuming isMandatory is a boolean
+
+// Function to save data to Firestore
+//   Future<void> saveDataToFirestore() async {
+//     try {
+//       CollectionReference collectionRef =
+//       FirebaseFirestore.instance.collection('adkCollection');
+//
+//       Map<String, dynamic> data = {
+//         'age': selectedAges.value,
+//         'gender': selectedGenders.value,
+//         'isMandatory': isMandatory.value,
+//       };
+//
+//       await collectionRef.add(data);
+//
+//       print('Data saved to Firestore successfully.');
+//     } catch (e) {
+//       print('Error saving data to Firestore: $e');
+//     }
+//   }
+//
+// }
 }

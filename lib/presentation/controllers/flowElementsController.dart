@@ -8,6 +8,9 @@ import 'package:testing_clinicalpathways/presentation/views/presentationLayerCon
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+
+
+
 enum ElementKind {
   rectangle,
   circle,
@@ -23,6 +26,8 @@ enum ElementKind {
   storage,
   immunizationRepresent
 }
+
+
 
 enum Handler {
   ///BASIC HANDLERS
@@ -52,6 +57,14 @@ enum Handler {
   bottomCenterMultiDoc,
   topCenterMultiDoc, rightCenterParallelogram,
 }
+//
+// class Flavor {
+//   String name;
+//   String gender;
+//   int ageGroup;
+//
+//   Flavor(this.name, this.gender, this.ageGroup);
+// }
 
 /// Class to store [ElementWidget]s and notify its changes
 class FlowElement extends GetxController {
@@ -131,13 +144,15 @@ class FlowElement extends GetxController {
   String selectedMode;
 
   /// The selected length for this element's answer
-  List<Map<String,dynamic>> range;
+  List<Map<String, dynamic>> range;
 
   /// STRING FOR MANDATORY QUESTIONS IN FLOWCHART
   String isMandatory;
 
   /// The selected length for this element's answer
   String options;
+
+  ///
 
 
   /// The selected TODO
@@ -158,6 +173,7 @@ class FlowElement extends GetxController {
   /// BOOL VALUE FOR IS PREGNANCY
   bool isPregnancy;
 
+
   FlowElement({
     this.position = Offset.infinite,
     this.size = Size.infinite,
@@ -177,7 +193,7 @@ class FlowElement extends GetxController {
     this.ageGroupIndex = 0,
     this.isMandatory = "",
     this.options = "",
-    this.range = const [{'min': 0.0, 'max':0.0,'length':0,'pattern':''}],
+    this.range = const [{'min': 0.0, 'max': 0.0, 'length': 0, 'pattern': ''}],
     this.textColor = Colors.black,
     this.textSize = 14,
     this.textIsBold = false,
@@ -199,7 +215,7 @@ class FlowElement extends GetxController {
     this.elevation = 4,
     next,
     this.id = '',
-    this.flowId='',
+    this.flowId = '',
 
     this.startId = '',
     this.endId = '',
@@ -207,7 +223,8 @@ class FlowElement extends GetxController {
     this.isFollowUp = false,
     this.isPregnancy = false,
 
-  })  : next = next ?? [],
+  })
+      : next = next ?? [],
         isResizing = false;
 
   @override
@@ -215,7 +232,7 @@ class FlowElement extends GetxController {
     return 'kind: $kind  text: $text';
   }
 
-  /// When setting to true, a handler will disply at the element bottom right
+  /// When setting to true, a handler will display at the element bottom right
   /// to let the user to resize it. When finish it will disappear.
   setIsResizing(bool resizing) {
     isResizing = resizing;
@@ -250,7 +267,7 @@ class FlowElement extends GetxController {
     update();
   }
 
-  ///
+
   /// SET FLOW CHART ID
   setFlowChartID(String flowChartId) {
     navigationId = flowChartId;
@@ -289,10 +306,32 @@ class FlowElement extends GetxController {
     update();
   }
 
-  selectLength(List<Map<String,dynamic>> range) {
+  selectLength(List<Map<String, dynamic>> range) {
     this.range = range;
     update();
   }
+
+
+  ///Set flavour for age , gender and ismandatory questions
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
   /// Set text color
   setTextColor(Color color) {
@@ -475,6 +514,8 @@ class FlowElement extends GetxController {
       "isEmergency" : isEmergency,
       "isFollowUp" : isFollowUp,
       "isPregnancy" : isPregnancy,
+
+
     };
   }
 
@@ -576,3 +617,37 @@ class FlowElement extends GetxController {
     };
   }
 }
+
+class Flavor {
+  late List<String> flavourGroup;
+  late int ageGroupIndex;
+  late List<Flavor> flavorList;
+
+  // Constructor and other methods...
+
+  void setFlavourGroup(List<String> flavourGroupElement) {
+    this.flavourGroup = flavourGroupElement;
+    updateFlavorList();
+  }
+
+  void setAgeGroupIndex(int index) {
+    this.ageGroupIndex = index;
+    updateFlavorList();
+  }
+
+  void updateFlavorList() {
+    // Here, you can filter your flavorList based on the selected flavourGroup and ageGroupIndex.
+
+    // Example filter logic:
+    flavorList = flavorList.where((flavor) {
+      bool flavourGroupMatches = flavourGroup.isEmpty || flavourGroup.contains(flavor.flavourGroup); // Assuming flavourGroup is a property in your Flavor class.
+      bool ageGroupIndexMatches = ageGroupIndex == -1 || ageGroupIndex == flavor.ageGroupIndex; // Assuming ageGroupIndex is a property in your Flavor class.
+
+      return flavourGroupMatches && ageGroupIndexMatches;
+    }).toList();
+  }
+}
+
+
+
+

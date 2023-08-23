@@ -111,38 +111,38 @@ class EndDrawer extends GetWidget<HomeController> {
                                       )),
 
 
-
-                                  ///flavour categories
-                                  Padding(
-                                      padding:
-                                      const EdgeInsets.all(8.0),
-                                      child: Column(
-                                        crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                        children: [
-                                          const Text(
-                                            'Flavour Category',
-                                            style: TextStyle(
-                                              fontSize: 16,
-                                              fontWeight:
-                                              FontWeight.bold,
-                                            ),
-                                          ),
-                                          SingleChipChoice(
-                                            selectedValue: controller
-                                                .selectedFlavour.value,
-                                            choiceList: controller
-                                                .clinicalPathwayFlavourCategoriesList
-                                                .flavourList,
-                                            onChanged: (val) {
-                                              controller.selectedFlavour;
-                                            },
-                                            valueFn: (i, v) => v,
-                                            labelFn: (i, v) => v,
-                                            tooltipFn: (i, v) => v,
-                                          ),
-                                        ],
-                                      )),
+                                  //
+                                  // ///flavour categories
+                                  // Padding(
+                                  //     padding:
+                                  //     const EdgeInsets.all(8.0),
+                                  //     child: Column(
+                                  //       crossAxisAlignment:
+                                  //       CrossAxisAlignment.start,
+                                  //       children: [
+                                  //         const Text(
+                                  //           'Flavour Category',
+                                  //           style: TextStyle(
+                                  //             fontSize: 16,
+                                  //             fontWeight:
+                                  //             FontWeight.bold,
+                                  //           ),
+                                  //         ),
+                                  //         SingleChipChoice(
+                                  //           selectedValue: controller
+                                  //               .selectedFlavour.value,
+                                  //           choiceList: controller
+                                  //               .clinicalPathwayFlavourCategoriesList
+                                  //               .flavourList,
+                                  //           onChanged: (val) {
+                                  //             controller.selectedFlavour;
+                                  //           },
+                                  //           valueFn: (i, v) => v,
+                                  //           labelFn: (i, v) => v,
+                                  //           tooltipFn: (i, v) => v,
+                                  //         ),
+                                  //       ],
+                                  //     )),
 
 
 
