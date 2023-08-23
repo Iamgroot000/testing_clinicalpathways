@@ -423,8 +423,6 @@ class EndDrawerForAddElement extends GetWidget<HomeController> {
                                                         ),
 
 
-
-
                                                       /// IS PREGNANT
                                                       Padding(
                                                         padding:
@@ -462,7 +460,7 @@ class EndDrawerForAddElement extends GetWidget<HomeController> {
                                                         Column(
                                                           crossAxisAlignment: CrossAxisAlignment.end,
                                                           children: [
-                                                            OutlinedButton(onPressed:(){
+                                                            OutlinedButton(onPressed:(){controller.updateDataInFirestore();
                                                               }, child: Text("Submit"))
                                                           ],
                                                         )
@@ -474,11 +472,9 @@ class EndDrawerForAddElement extends GetWidget<HomeController> {
                                             ),
 
 
-
                                           ],
                                         ),
                                       ),
-
 
                                       Container(
                                               height: 0.0001,

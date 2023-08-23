@@ -1067,9 +1067,34 @@ class HomeController extends GetxController {
   }
 
 
-// var selectedAges = [].obs; // Assuming selectedAges is a List
-// var selectedGenders = [].obs; // Assuming selectedGenders is a List
-// var isMandatory = false.obs; // Assuming isMandatory is a boolean
+  /// function saving for flavour list data
+
+  Future<void> updateDataInFirestore() async {
+    try {
+      CollectionReference collectionRef =
+      FirebaseFirestore.instance.collection('adkCollection');
+
+      // Create a Map with the new data structure
+      Map<String, dynamic> newData = {
+        'element': {
+          'flavourListItem': {
+            'age': selectedAges.value,
+            'gender': selectedGenders.value,
+            'isMandatory': isMandatory.value,
+          }
+        }
+      };
+
+      // Update the document with the new data
+      await collectionRef.doc('785653').update(newData);
+
+      print('Data updated in Firestore successfully.');
+    } catch (e) {
+      print('Error updating data in Firestore: $e');
+    }
+  }
+
+
 
 // Function to save data to Firestore
 //   Future<void> saveDataToFirestore() async {
@@ -1092,4 +1117,5 @@ class HomeController extends GetxController {
 //   }
 //
 // }
+
 }

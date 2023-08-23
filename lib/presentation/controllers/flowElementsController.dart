@@ -10,7 +10,6 @@ import 'package:get/get.dart';
 
 
 
-
 enum ElementKind {
   rectangle,
   circle,
@@ -57,14 +56,7 @@ enum Handler {
   bottomCenterMultiDoc,
   topCenterMultiDoc, rightCenterParallelogram,
 }
-//
-// class Flavor {
-//   String name;
-//   String gender;
-//   int ageGroup;
-//
-//   Flavor(this.name, this.gender, this.ageGroup);
-// }
+
 
 /// Class to store [ElementWidget]s and notify its changes
 class FlowElement extends GetxController {
@@ -285,6 +277,38 @@ class FlowElement extends GetxController {
     update();
   }
 
+  // ///SET FLAVOUR QUESTION
+  // setFlavourAgeGroup(List<AgeGroupItem> ageGroupQ) {
+  //   ageGroupQuestion = ageGroupQ;
+  //   update();
+  // }
+  //
+  // setFlavourGenderGroup(List<String> genderGroupElement) {
+  //   genderGroup = genderGroupElement;
+  //   update();
+  // }
+  //
+  // setFlavourAgeGroupIndex(int index) {
+  //   ageGroupIndex = index;
+  //   update();
+  // }
+  //
+  // setFlavourOptions(String options) {
+  //   this.options = options;
+  //   update();
+  // }
+  //
+  // setFlavourModeName(String modeName) {
+  //   this.selectedMode = modeName;
+  //   update();
+  // }
+  //
+  // selectFlavourLength(List<Map<String, dynamic>> range) {
+  //   this.range = range;
+  //   update();
+  // }
+
+
   /// SET GENDER GROUP FOR EACH QUESTION
   setGenderGroup(List<String> genderGroupElement) {
     genderGroup = genderGroupElement;
@@ -310,27 +334,6 @@ class FlowElement extends GetxController {
     this.range = range;
     update();
   }
-
-
-  ///Set flavour for age , gender and ismandatory questions
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
   /// Set text color
@@ -470,6 +473,7 @@ class FlowElement extends GetxController {
     isPregnancy.hashCode^
     ageGroupQuestion.hashCode;
 
+
   }
 
   Map<String, dynamic> toMap() {
@@ -495,6 +499,7 @@ class FlowElement extends GetxController {
       'ageGroup': ageGroupQuestion.toList(),
       'genderGroup': genderGroup.toList(),
 
+
       ///CUSTOM FIELDS - END
       'textColor': textColor.value,
       'textSize': textSize,
@@ -516,7 +521,14 @@ class FlowElement extends GetxController {
       "isPregnancy" : isPregnancy,
 
 
-    };
+    //   'flavour' :flavour.map((item) => {,
+    //   'age': ageGroupQuestion.toList(),
+    //   'gender': genderGroup.toList(),
+    //   'isMandatory': isMandatory.toList(),
+    //
+    // }).toList(),
+
+  };
   }
 
   factory FlowElement.fromMap(Map<String, dynamic> map) {
@@ -618,35 +630,34 @@ class FlowElement extends GetxController {
   }
 }
 
-class Flavor {
-  late List<String> flavourGroup;
-  late int ageGroupIndex;
-  late List<Flavor> flavorList;
-
-  // Constructor and other methods...
-
-  void setFlavourGroup(List<String> flavourGroupElement) {
-    this.flavourGroup = flavourGroupElement;
-    updateFlavorList();
-  }
-
-  void setAgeGroupIndex(int index) {
-    this.ageGroupIndex = index;
-    updateFlavorList();
-  }
-
-  void updateFlavorList() {
-    // Here, you can filter your flavorList based on the selected flavourGroup and ageGroupIndex.
-
-    // Example filter logic:
-    flavorList = flavorList.where((flavor) {
-      bool flavourGroupMatches = flavourGroup.isEmpty || flavourGroup.contains(flavor.flavourGroup); // Assuming flavourGroup is a property in your Flavor class.
-      bool ageGroupIndexMatches = ageGroupIndex == -1 || ageGroupIndex == flavor.ageGroupIndex; // Assuming ageGroupIndex is a property in your Flavor class.
-
-      return flavourGroupMatches && ageGroupIndexMatches;
-    }).toList();
-  }
-}
+// class Flavor {
+//   late List<String> flavourGroup;
+//   late int ageGroupIndex;
+//   late List<Flavor> flavorList;
+//
+//
+//   void setFlavourGroup(List<String> flavourGroupElement) {
+//     this.flavourGroup = flavourGroupElement;
+//     updateFlavorList();
+//   }
+//
+//   void setAgeGroupIndex(int index) {
+//     this.ageGroupIndex = index;
+//     updateFlavorList();
+//   }
+//
+//   void updateFlavorList() {
+//     // Here, you can filter your flavorList based on the selected flavourGroup and ageGroupIndex.
+//
+//     // Example filter logic:
+//     flavorList = flavorList.where((flavor) {
+//       bool flavourGroupMatches = flavourGroup.isEmpty || flavourGroup.contains(flavor.flavourGroup); // Assuming flavourGroup is a property in your Flavor class.
+//       bool ageGroupIndexMatches = ageGroupIndex == -1 || ageGroupIndex == flavor.ageGroupIndex; // Assuming ageGroupIndex is a property in your Flavor class.
+//
+//       return flavourGroupMatches && ageGroupIndexMatches;
+//     }).toList();
+//   }
+// }
 
 
 
