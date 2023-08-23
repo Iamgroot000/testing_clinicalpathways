@@ -259,6 +259,10 @@ class HomeController extends GetxController {
 
     addHomeEntityButtonLoading.value = true;
 
+
+    ///Add flavour data in firestore
+
+
     /// UNIQUE FLOW ID IN THE FIREBASE
     String uniqueDashboardId = random.nextInt(1000000).toString();
 
