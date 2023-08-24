@@ -2,13 +2,14 @@ import 'dart:collection';
 import 'dart:convert';
 
 import 'package:testing_clinicalpathways/domain/entities/ageGroupVariables.dart';
+
 import 'package:testing_clinicalpathways/domain/entities/flowChartEntities/connectionParameters.dart';
 import 'package:testing_clinicalpathways/domain/entities/flowChartEntities/getFlowChartEntitiesConnector.dart';
 import 'package:testing_clinicalpathways/presentation/views/presentationLayerConnectors.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-
+import '../../domain/entities/clinicalPathwayFlavourCategories.dart';
 
 enum ElementKind {
   rectangle,
@@ -25,8 +26,6 @@ enum ElementKind {
   storage,
   immunizationRepresent
 }
-
-
 
 enum Handler {
   ///BASIC HANDLERS
@@ -56,7 +55,6 @@ enum Handler {
   bottomCenterMultiDoc,
   topCenterMultiDoc, rightCenterParallelogram,
 }
-
 
 /// Class to store [ElementWidget]s and notify its changes
 class FlowElement extends GetxController {
@@ -111,9 +109,6 @@ class FlowElement extends GetxController {
   /// The selected group for this element
   String selectedGroup;
 
-  /// The selected flavour for this element
-  String selectedFlavour;
-
   /// The selected group index for this element
   int groupIndex;
 
@@ -136,15 +131,17 @@ class FlowElement extends GetxController {
   String selectedMode;
 
   /// The selected length for this element's answer
-  List<Map<String, dynamic>> range;
+  List<Map<String,dynamic>> range;
+
+  /// FLAVOUR OF PRE CONSULT APPLICATION
+  List<FlavourItem> flavours;
+
 
   /// STRING FOR MANDATORY QUESTIONS IN FLOWCHART
   String isMandatory;
 
   /// The selected length for this element's answer
   String options;
-
-  ///
 
 
   /// The selected TODO
@@ -165,13 +162,11 @@ class FlowElement extends GetxController {
   /// BOOL VALUE FOR IS PREGNANCY
   bool isPregnancy;
 
-
   FlowElement({
     this.position = Offset.infinite,
     this.size = Size.infinite,
     this.text = '',
     this.selectedGroup = '',
-    this.selectedFlavour = '',
     this.groupIndex = 0,
     this.selectedMode = '',
 
@@ -185,7 +180,8 @@ class FlowElement extends GetxController {
     this.ageGroupIndex = 0,
     this.isMandatory = "",
     this.options = "",
-    this.range = const [{'min': 0.0, 'max': 0.0, 'length': 0, 'pattern': ''}],
+    this.range = const [{'min': 0.0, 'max':0.0,'length':0,'pattern':''}],
+    this.flavours = const [],
     this.textColor = Colors.black,
     this.textSize = 14,
     this.textIsBold = false,
@@ -207,7 +203,7 @@ class FlowElement extends GetxController {
     this.elevation = 4,
     next,
     this.id = '',
-    this.flowId = '',
+    this.flowId='',
 
     this.startId = '',
     this.endId = '',
@@ -215,8 +211,7 @@ class FlowElement extends GetxController {
     this.isFollowUp = false,
     this.isPregnancy = false,
 
-  })
-      : next = next ?? [],
+  })  : next = next ?? [],
         isResizing = false;
 
   @override
@@ -224,7 +219,7 @@ class FlowElement extends GetxController {
     return 'kind: $kind  text: $text';
   }
 
-  /// When setting to true, a handler will display at the element bottom right
+  /// When setting to true, a handler will disply at the element bottom right
   /// to let the user to resize it. When finish it will disappear.
   setIsResizing(bool resizing) {
     isResizing = resizing;
@@ -248,17 +243,10 @@ class FlowElement extends GetxController {
     update();
   }
 
-  /// SET GROUP NAME
-  setFlavourName(String flavourName) {
-    this.selectedFlavour = flavourName;
-    update();
-  }
-
   setGroupIndex(int index) {
     this.groupIndex = index;
     update();
   }
-
 
   /// SET FLOW CHART ID
   setFlowChartID(String flowChartId) {
@@ -277,37 +265,11 @@ class FlowElement extends GetxController {
     update();
   }
 
-  // ///SET FLAVOUR QUESTION
-  // setFlavourAgeGroup(List<AgeGroupItem> ageGroupQ) {
-  //   ageGroupQuestion = ageGroupQ;
-  //   update();
-  // }
-  //
-  // setFlavourGenderGroup(List<String> genderGroupElement) {
-  //   genderGroup = genderGroupElement;
-  //   update();
-  // }
-  //
-  // setFlavourAgeGroupIndex(int index) {
-  //   ageGroupIndex = index;
-  //   update();
-  // }
-  //
-  // setFlavourOptions(String options) {
-  //   this.options = options;
-  //   update();
-  // }
-  //
-  // setFlavourModeName(String modeName) {
-  //   this.selectedMode = modeName;
-  //   update();
-  // }
-  //
-  // selectFlavourLength(List<Map<String, dynamic>> range) {
-  //   this.range = range;
-  //   update();
-  // }
-
+  ///
+  setFlavour(List<FlavourItem> flavourCollection) {
+    flavours = flavourCollection;
+    update();
+  }
 
   /// SET GENDER GROUP FOR EACH QUESTION
   setGenderGroup(List<String> genderGroupElement) {
@@ -330,11 +292,10 @@ class FlowElement extends GetxController {
     update();
   }
 
-  selectLength(List<Map<String, dynamic>> range) {
+  selectLength(List<Map<String,dynamic>> range) {
     this.range = range;
     update();
   }
-
 
   /// Set text color
   setTextColor(Color color) {
@@ -471,8 +432,8 @@ class FlowElement extends GetxController {
     isEmergency.hashCode^
     isFollowUp.hashCode^
     isPregnancy.hashCode^
+    flavours.hashCode^
     ageGroupQuestion.hashCode;
-
 
   }
 
@@ -498,7 +459,7 @@ class FlowElement extends GetxController {
       'navigationId': navigationId,
       'ageGroup': ageGroupQuestion.toList(),
       'genderGroup': genderGroup.toList(),
-
+      'flavours': flavours.toList(),
 
       ///CUSTOM FIELDS - END
       'textColor': textColor.value,
@@ -519,16 +480,7 @@ class FlowElement extends GetxController {
       "isEmergency" : isEmergency,
       "isFollowUp" : isFollowUp,
       "isPregnancy" : isPregnancy,
-
-
-    //   'flavour' :flavour.map((item) => {,
-    //   'age': ageGroupQuestion.toList(),
-    //   'gender': genderGroup.toList(),
-    //   'isMandatory': isMandatory.toList(),
-    //
-    // }).toList(),
-
-  };
+    };
   }
 
   factory FlowElement.fromMap(Map<String, dynamic> map) {
@@ -556,6 +508,12 @@ class FlowElement extends GetxController {
       ageGroupQuestion: map['ageGroup'] != null
           ? ageGroupItemListFromMap(map['ageGroup'])
           : [],
+      flavours: map['flavoursList'] != null ? FlavourItemListFromMap(map['flavours']) : [],
+      // flavours: List<FlavourItem>.from(
+      //   (map['flavours'] as List<dynamic>).map<dynamic>(
+      //         (x) => FlavourItem.fromMap(x as Map<String, dynamic>),
+      //   ),
+      // ),
       textColor: Color(map['textColor'] as int),
       textSize: map['textSize'] as double,
       textIsBold: map['textIsBold'] as bool,
@@ -614,6 +572,7 @@ class FlowElement extends GetxController {
       "navigationId": this.navigationId,
       "flowIndex": this.flowIndex,
       "ageGroup": jsonEncode(this.ageGroupQuestion),
+      "flavours": jsonEncode(this.flavours),
       "genderGroup": jsonEncode(this.genderGroup),
       "ageGroupIndex": this.ageGroupIndex,
       "selectedMode": this.selectedMode,
@@ -629,36 +588,3 @@ class FlowElement extends GetxController {
     };
   }
 }
-
-// class Flavor {
-//   late List<String> flavourGroup;
-//   late int ageGroupIndex;
-//   late List<Flavor> flavorList;
-//
-//
-//   void setFlavourGroup(List<String> flavourGroupElement) {
-//     this.flavourGroup = flavourGroupElement;
-//     updateFlavorList();
-//   }
-//
-//   void setAgeGroupIndex(int index) {
-//     this.ageGroupIndex = index;
-//     updateFlavorList();
-//   }
-//
-//   void updateFlavorList() {
-//     // Here, you can filter your flavorList based on the selected flavourGroup and ageGroupIndex.
-//
-//     // Example filter logic:
-//     flavorList = flavorList.where((flavor) {
-//       bool flavourGroupMatches = flavourGroup.isEmpty || flavourGroup.contains(flavor.flavourGroup); // Assuming flavourGroup is a property in your Flavor class.
-//       bool ageGroupIndexMatches = ageGroupIndex == -1 || ageGroupIndex == flavor.ageGroupIndex; // Assuming ageGroupIndex is a property in your Flavor class.
-//
-//       return flavourGroupMatches && ageGroupIndexMatches;
-//     }).toList();
-//   }
-// }
-
-
-
-

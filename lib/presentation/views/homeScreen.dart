@@ -213,7 +213,6 @@ class HomeScreen extends GetView<HomeController> {
       ),
     );
   }
-
   /// Display a drop down menu when tapping on an element
   _displayElementMenu(BuildContext context, Offset position, FlowElement element) {
     StarMenuOverlay.displayStarMenu(

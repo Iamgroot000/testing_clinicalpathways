@@ -1,5 +1,6 @@
 import 'dart:math';
 import 'package:testing_clinicalpathways/domain/entities/clinicalPathwayCategoriesEntity.dart';
+import 'package:testing_clinicalpathways/domain/entities/clinicalPathwayFlavourCategories.dart';
 import 'package:testing_clinicalpathways/domain/entities/flowChartEntities/elementShapeEntity.dart';
 import 'package:testing_clinicalpathways/domain/entities/genderGroupsStandard.dart';
 import 'package:testing_clinicalpathways/domain/usecases/homeUseCase.dart';
@@ -63,6 +64,7 @@ class HomeController extends GetxController {
   /// REFERENCE OF THE HOME ENTITY LIST FROM THE ENTITY FOLDER IN DOMAIN PART
   List<DashboardEntity> homeEntityList = [];
   List<AgeGroupItem> ageGroupItemList = [];
+  List<FlavourItem> flavourItemList = [];
   List<AgeGroupItem> ageGroupItemListForElement = [];
   ClinicalPathwayCategoriesItem clinicalPathwayCategoriesList = ClinicalPathwayCategoriesItem(
       categoryList: []);
@@ -535,6 +537,19 @@ class HomeController extends GetxController {
       }
     }
 
+
+
+    List<FlavourItem> flavours = [];
+    for (FlavourItem flavour in flavourItemList) {
+      for (String groupName in selectedAges.value) {
+        if (flavour.groupName == groupName) {
+          flavours.add(flavour);
+        }
+      }
+      print("FlavoursList : $flavours");
+    }
+
+
     /// CREATE A NEW ELEMENT
     if (isNewElement.value) {
       dashboard.addElement(FlowElement(
@@ -548,9 +563,9 @@ class HomeController extends GetxController {
         selectedMode: selectedMode.value ?? '',
         options: options.value.join("#") ?? '',
         selectedGroup: selectedCategory.value ?? '',
-        selectedFlavour: selectedFlavour.value ?? '',
         isMandatory: isMandatory.value.toString() ?? '',
         ageGroupQuestion: ageGroups ?? [],
+        flavours: flavours ?? [],
         id: '',
         genderGroup: selectedGenders.value ?? [],
         navigationId: _dashboardEntity.flowchartId,
@@ -576,9 +591,9 @@ class HomeController extends GetxController {
         existingElement.selectedMode = selectedMode.value ?? '';
         existingElement.options = options.value.join("#") ?? '';
         existingElement.selectedGroup = selectedCategory.value ?? '';
-        existingElement.selectedFlavour = selectedFlavour.value ?? '';
         existingElement.isMandatory = isMandatory.value.toString() ?? '';
         existingElement.ageGroupQuestion = ageGroups ?? [];
+        existingElement.flavours = flavours ?? [];
         existingElement.genderGroup = selectedGenders.value ?? [];
         existingElement.startId = startId.value;
         existingElement.endId = endId.value;
@@ -668,7 +683,7 @@ class HomeController extends GetxController {
       selectedMode.value = flowElement.selectedMode;
       options.value = flowElement.options.split("#");
       selectedCategory.value = flowElement.selectedGroup;
-      selectedFlavour.value = flowElement.selectedFlavour;
+      // selectedFlavour.value = flowElement.selectedFlavour;
       isMandatory.value = bool.tryParse(flowElement.isMandatory) ?? false;
       selectedGenders.value = flowElement.genderGroup;
       elementTextController.text = flowElement.text;
@@ -1066,56 +1081,30 @@ class HomeController extends GetxController {
     update();
   }
 
-
-  /// function saving for flavour list data
-
-  Future<void> updateDataInFirestore() async {
+/// function - saving flavour list data
+  Future<void> updateDataInFirestore(String flavorListName) async {
     try {
       CollectionReference collectionRef =
       FirebaseFirestore.instance.collection('adkCollection');
 
       // Create a Map with the new data structure
       Map<String, dynamic> newData = {
-        'element': {
-          'flavourListItem': {
-            'age': selectedAges.value,
-            'gender': selectedGenders.value,
-            'isMandatory': isMandatory.value,
-          }
-        }
+        'age': selectedAges.value,
+        'gender': selectedGenders.value,
+        'isMandatory': isMandatory.value,
       };
 
-      // Update the document with the new data
-      await collectionRef.doc('785653').update(newData);
+      // Update the 'flavourListItem' data within the existing 'elements' field at index 0
+      await collectionRef.doc('915371').update({
+        'elements.0.adk': newData,
+      });
 
-      print('Data updated in Firestore successfully.');
+      print('Data updated in Firestore successfully for $flavorListName.');
     } catch (e) {
       print('Error updating data in Firestore: $e');
     }
   }
 
 
-
-// Function to save data to Firestore
-//   Future<void> saveDataToFirestore() async {
-//     try {
-//       CollectionReference collectionRef =
-//       FirebaseFirestore.instance.collection('adkCollection');
-//
-//       Map<String, dynamic> data = {
-//         'age': selectedAges.value,
-//         'gender': selectedGenders.value,
-//         'isMandatory': isMandatory.value,
-//       };
-//
-//       await collectionRef.add(data);
-//
-//       print('Data saved to Firestore successfully.');
-//     } catch (e) {
-//       print('Error saving data to Firestore: $e');
-//     }
-//   }
-//
-// }
 
 }
