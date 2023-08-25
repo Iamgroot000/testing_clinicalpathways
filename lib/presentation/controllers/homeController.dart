@@ -904,7 +904,6 @@ class HomeController extends GetxController {
     }
   }
 
-
   /// COPY SHAPE PASTE FUNCTION WITH SOME SAME ELEMENT OF IT
   pasteElement() {
     for (int i = 0; i < numElements.value; i++) {
@@ -1043,6 +1042,7 @@ class HomeController extends GetxController {
     update();
   }
 
+
   updateIsFollowUp(bool isFollowUp) {
     this.isFollowUp.value = isFollowUp;
     update();
@@ -1087,16 +1087,23 @@ class HomeController extends GetxController {
       CollectionReference collectionRef =
       FirebaseFirestore.instance.collection('adkCollection');
 
-      // Create a Map with the new data structure
-      Map<String, dynamic> newData = {
+      // Create Maps with the new data structures for ADK and AMMC
+      Map<String, dynamic> adkData = {
         'age': selectedAges.value,
         'gender': selectedGenders.value,
         'isMandatory': isMandatory.value,
       };
 
-      // Update the 'flavourListItem' data within the existing 'elements' field at index 0
-      await collectionRef.doc('915371').update({
-        'elements.0.adk': newData,
+      Map<String, dynamic> ammcData = {
+        // Fill this with your AMMC data
+      };
+
+      // Use arrayUnion to add both ADK and AMMC data to the 'elements' array
+      await collectionRef.doc('229534').update({
+        'elements': FieldValue.arrayUnion([
+          {'adk': adkData},
+          {'ammc': ammcData}
+        ]),
       });
 
       print('Data updated in Firestore successfully for $flavorListName.');
@@ -1104,7 +1111,5 @@ class HomeController extends GetxController {
       print('Error updating data in Firestore: $e');
     }
   }
-
-
 
 }
