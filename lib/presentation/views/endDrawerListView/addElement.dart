@@ -1000,7 +1000,6 @@ class EndDrawerForAddElement extends GetWidget<HomeController> {
                                                       )
                                                     : Container(height: 0.001),
 
-
                                                 Row(
                                                   children: [
                                                     /// IS MANDATORY CHECKBOX
@@ -1102,7 +1101,8 @@ class EndDrawerForAddElement extends GetWidget<HomeController> {
                                                   ],
                                                 ),
 
-                                                ///flavour
+
+                                                ///flavour Section
                                                 Padding(
                                                   padding: const EdgeInsets.all(8.0),
                                                   child: Column(
@@ -1181,10 +1181,8 @@ class EndDrawerForAddElement extends GetWidget<HomeController> {
                                                                     Radius.circular(25),
                                                                   ),
                                                                 ),
-                                                              ),
+                                                             ),
                                                             ),
-
-
 
 
                                                             Row(
@@ -1223,7 +1221,6 @@ class EndDrawerForAddElement extends GetWidget<HomeController> {
                                                                 ),
 
 
-
                                                                 /// IS FOLLOW UP
                                                                 Padding(
                                                                   padding:
@@ -1254,7 +1251,6 @@ class EndDrawerForAddElement extends GetWidget<HomeController> {
                                                                     ],
                                                                   ),
                                                                 ),
-
 
                                                                 /// IS PREGNANT
                                                                 Padding(
@@ -1287,23 +1283,37 @@ class EndDrawerForAddElement extends GetWidget<HomeController> {
                                                             ),
                                                             SizedBox(height: 30),
                                                             Container(
-                                                              height: 50,
+                                                              height: 40,
                                                               width: 100,
-                                                              child: (
-                                                                  Column(
-                                                                    crossAxisAlignment: CrossAxisAlignment.end,
+                                                              child: Column(
+                                                                crossAxisAlignment: CrossAxisAlignment.end,
+                                                               // mainAxisAlignment: MainAxisAlignment.center,
+                                                                children: [
+                                                                  Row(
+                                                                    mainAxisAlignment: MainAxisAlignment.start,
                                                                     children: [
-                                                                      OutlinedButton(onPressed:(){
-
-                                                                        controller.updateDataInFirestore('adk');
-                                                                       //controller. updateDataInFirestore('aamc');
-                                                                      }, child: Text("Submit"))
+                                                                      OutlinedButton(
+                                                                        onPressed: () {
+                                                                          controller.updateDataInFirestore('adk');
+                                                                        },
+                                                                        child: Text("Submit ADK Data"),
+                                                                      ),
+                                                                      // SizedBox(width: 10,),
+                                                                      // OutlinedButton(
+                                                                      //   onPressed: () {
+                                                                      //  //  controller. updateAAMCDataInFirestore();
+                                                                      //   },
+                                                                      //   child: Text("Submit AAMC Data"),
+                                                                      // ),
                                                                     ],
-                                                                  )
+                                                                  ),
+                                                                ],
                                                               ),
                                                             ),
+
                                                           ],
-                                                        )).toList(),
+                                                        ))
+                                                            .toList(),
                                                       ),
                                                     ],
                                                   ),
@@ -1312,13 +1322,6 @@ class EndDrawerForAddElement extends GetWidget<HomeController> {
                                                 Container(
                                                   height: 0.0001,
                                                 ),
-
-
-
-
-
-
-
                                               ],
                                             )),
                                     ],

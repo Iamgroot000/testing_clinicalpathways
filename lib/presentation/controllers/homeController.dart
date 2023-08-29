@@ -1084,32 +1084,53 @@ class HomeController extends GetxController {
 /// function - saving flavour list data
   Future<void> updateDataInFirestore(String flavorListName) async {
     try {
-      CollectionReference collectionRef =
-      FirebaseFirestore.instance.collection('adkCollection');
+      CollectionReference collectionRef = FirebaseFirestore.instance.collection('adkCollection');
 
-      // Create Maps with the new data structures for ADK and AMMC
       Map<String, dynamic> adkData = {
         'age': selectedAges.value,
         'gender': selectedGenders.value,
         'isMandatory': isMandatory.value,
       };
 
-      Map<String, dynamic> ammcData = {
-        // Fill this with your AMMC data
-      };
-
-      // Use arrayUnion to add both ADK and AMMC data to the 'elements' array
-      await collectionRef.doc('229534').update({
+      await collectionRef.doc('799841').update({
         'elements': FieldValue.arrayUnion([
           {'adk': adkData},
-          {'ammc': ammcData}
         ]),
       });
 
-      print('Data updated in Firestore successfully for $flavorListName.');
+      print('ADK data updated in Firestore successfully for $flavorListName.');
     } catch (e) {
-      print('Error updating data in Firestore: $e');
+      print('Error updating ADK data in Firestore: $e');
     }
   }
+
+
+
+  /// function for saving aamc data
+
+  // Future<void> updateAAMCDataInFirestore() async {
+  //   try {
+  //     CollectionReference collectionRef = FirebaseFirestore.instance.collection('adkCollection');
+  //
+  //     Map<String, dynamic> aamcData = {
+  //       'age': selectedAges.value,
+  //       'gender': selectedGenders.value,
+  //       'isMandatory': isMandatory.value,
+  //     };
+  //
+  //     await collectionRef.doc('122279').set({
+  //       'elements': FieldValue.arrayUnion([
+  //         {'aamc': aamcData},
+  //       ]),
+  //     }, SetOptions(merge: true));
+  //
+  //     print('AAMC data updated in Firestore successfully at index 1 with document ID 23456.');
+  //   } catch (e) {
+  //     print('Error updating AAMC data in Firestore: $e');
+  //   }
+  // }
+  //
+
+
 
 }
