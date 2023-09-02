@@ -3,75 +3,54 @@ import 'dart:convert';
 import 'package:testing_clinicalpathways/presentation/views/presentationLayerConnectors.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
+import 'ClinicalPathwayFlavourCategories.dart';
 import 'genderGroupsStandard.dart';
 
-FlavourItem flavourFromJson(String str) =>
+
+FlavourItem ageGroupsFromJson(String str) =>
     FlavourItem.fromJson(json.decode(str));
 
-String flavourToJson(AgeGroupItem data) => json.encode(data.toJson());
+String ageGroupsToJson(FlavourItem data) => json.encode(data.toJson());
 
 List<FlavourItem> FlavourItemListFromJson(str) =>
     List<FlavourItem>.from((str).map((x) => FlavourItem.fromJson(x.data())));
 
-List<FlavourItem> FlavourItemListFromMap(List<dynamic> flavourList) {
-  return flavourList
+List<FlavourItem> FlavourItemListFromMap(List<dynamic> ageGroupList) {
+  return ageGroupList
       .map<FlavourItem>((map) => FlavourItem.fromJson(map))
-      .toList();
-}
+      .toList();}
 
-String flavourItemListToJson(List<FlavourItem> flavourItemList) {
-  final List<Map<String, dynamic>> jsonData =
-  flavourItemList.map((item) => item.toJson()).toList();
-  final Map<String, dynamic> jsonMap = {"flavourList": jsonData};
-  return json.encode(jsonMap);
-}
 
 class FlavourItem {
-  DocumentReference<Object?>? reference;
+  String? appFlavour;
   bool? isMandatory;
-  String? groupName;
-  AgeGroupItem? ageGroup;
-  GenderGroupStandardItem? genderGroupStandard;
+  List<String>? genders;
+  List<AgeGroupItem>? ageGroups;
 
-  FlavourItem({
-    this.isMandatory =false,
-    this.groupName = '',
-    this.ageGroup,
-    this.genderGroupStandard,
-  });
-
+  FlavourItem( {this.appFlavour, this.isMandatory, this.genders,
+    this.ageGroups});
 
   factory FlavourItem.fromJson(Map<String, dynamic> json) {
-    FlavourItem item =FlavourItem(
-      isMandatory:json["isMandatory"]!=null ? json["isMandatory"].toString().compareTo('true') ==0 : false,
+    debugPrint("test: flavourItem.fromJson : ${json}");
+    FlavourItem flavourItem = FlavourItem(
+      appFlavour: json['appFlavour'] as String?,
+      isMandatory: json['isMandatory'] as bool?,
+      genders: (json['genders'] as List<dynamic>?)?.cast<String>(),
+      ageGroups: (json['ageGroups'] as List<dynamic>?)
+          ?.map((e) => AgeGroupItem.fromJson(e as Map<String, dynamic>))
+          .toList(),
     );
-    return item;
+    debugPrint("test: flavourItem.fromJson end : ${flavourItem.toJson()}");
+    return flavourItem;
   }
 
-
-  @override
-  String toString() {
-    return toJson().toString();
-  }
-
-  Map<String, dynamic> toJson() => {
-    'isMandatory': isMandatory,
-    "groupName": groupName,
-    "ageGroup": ageGroup ,
-    "gender" : genderGroupStandard,
-  };
-
-  FlavourItem.fromMap(map, {this.reference}) {
-    groupName = map['groupName'];
-
-  }
-
-  Map<String, dynamic> toMap() {
+  Map<String, dynamic> toJson() {
     return {
-      'groupName': groupName,
+      'appFlavour': appFlavour,
+      'isMandatory': isMandatory,
+      'genders': genders,
+      'ageGroups': ageGroups?.map((item) => item.toJson()).toList(),
     };
   }
-
-  FlavourItem.fromSnapshot(QueryDocumentSnapshot snapshot)
-      : this.fromMap(snapshot.data(), reference: snapshot.reference);
+//
 }

@@ -17,7 +17,8 @@ class EndDrawerForAddElement extends GetWidget<HomeController> {
 
   @override
   Widget build(BuildContext context) {
-    return Obx(() => Drawer(
+    return Obx(() =>
+        Drawer(
           width: (controller.isExtended.value)
               ? ScreenSize.width(context) * 0.8
               : ScreenSize.width(context) * 0.5,
@@ -47,12 +48,14 @@ class EndDrawerForAddElement extends GetWidget<HomeController> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
+
                           ///HEADER
                           Expanded(
                               flex: 27,
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
+
                                   /// TITLE
                                   Padding(
                                     padding: const EdgeInsets.only(
@@ -64,7 +67,7 @@ class EndDrawerForAddElement extends GetWidget<HomeController> {
                                       decoration: BoxDecoration(
                                           color: AppColor.primaryColor,
                                           borderRadius:
-                                              BorderRadius.circular(10)),
+                                          BorderRadius.circular(10)),
                                       // Add a background color
                                       child: Row(
                                         children: [
@@ -101,95 +104,101 @@ class EndDrawerForAddElement extends GetWidget<HomeController> {
 
                                   /// ADD ELEMENT
                                   SizedBox(
-                                    height: ScreenSize.height(context) * 0.15,
-                                    width: ScreenSize.width(context) * 0.5,
-                                    child: Padding(
-                                      padding:
-                                      const EdgeInsets.all(6.0),
-                                      child: ListView.separated(
-                                        itemCount: globals
-                                            .elementShapesList.length,
-                                        separatorBuilder: (context, index) =>
-                                        const SizedBox(
-                                            width: 6.0),
-                                        scrollDirection: Axis.horizontal,
-                                        itemBuilder: (context, index) {
+                                      height: ScreenSize.height(context) * 0.15,
+                                      width: ScreenSize.width(context) * 0.5,
+                                      child: Padding(
+                                        padding:
+                                        const EdgeInsets.all(6.0),
+                                        child: ListView.separated(
+                                          itemCount: globals
+                                              .elementShapesList.length,
+                                          separatorBuilder: (context, index) =>
+                                          const SizedBox(
+                                              width: 6.0),
+                                          scrollDirection: Axis.horizontal,
+                                          itemBuilder: (context, index) {
+                                            bool isSelected = (controller
+                                                .selectedIndexForElement ==
+                                                index);
 
-                                          bool isSelected = (controller.selectedIndexForElement == index);
-
-                                          return Column(
-                                            children: [
-                                              GestureDetector(
-                                                onTap: () {
-                                                  controller.updateIndexForElements(index:
-                                                  index);
-                                                },
-                                                child: Padding(
-                                                  padding:
-                                                  const EdgeInsets
-                                                      .only(
-                                                    left: 3.0,
-                                                    right: 3.0,
-                                                  ),
-                                                  child: Container(
-                                                    width: ScreenSize
-                                                        .width(
-                                                        context) *
-                                                        0.07,
-                                                    height: ScreenSize
-                                                        .height(
-                                                        context) *
-                                                        0.1,
-                                                    decoration:
-                                                    BoxDecoration(
-                                                        borderRadius:
-                                                        BorderRadius.circular(
-                                                            8.0),
-                                                        border:
-                                                        Border
-                                                            .all(
-                                                          color: isSelected
-                                                              ? Colors.blue
-                                                              : Colors.grey.shade500,
+                                            return Column(
+                                              children: [
+                                                GestureDetector(
+                                                  onTap: () {
+                                                    controller
+                                                        .updateIndexForElements(
+                                                        index:
+                                                        index);
+                                                  },
+                                                  child: Padding(
+                                                    padding:
+                                                    const EdgeInsets
+                                                        .only(
+                                                      left: 3.0,
+                                                      right: 3.0,
+                                                    ),
+                                                    child: Container(
+                                                      width: ScreenSize
+                                                          .width(
+                                                          context) *
+                                                          0.07,
+                                                      height: ScreenSize
+                                                          .height(
+                                                          context) *
+                                                          0.1,
+                                                      decoration:
+                                                      BoxDecoration(
+                                                          borderRadius:
+                                                          BorderRadius.circular(
+                                                              8.0),
+                                                          border:
+                                                          Border
+                                                              .all(
+                                                            color: isSelected
+                                                                ? Colors.blue
+                                                                : Colors.grey
+                                                                .shade500,
                                                             //color: Colors.blue,
                                                             width: isSelected
                                                                 ? 2.0
                                                                 : 1.0,
                                                             //width: 1.0
-                                                        )),
-                                                    child:
-                                                    Image.asset(
-                                                      globals
-                                                          .elementShapesList[
-                                                      index]
-                                                          .flowElementImage!,
-                                                      width: 50,
-                                                      height: 50,
+                                                          )),
+                                                      child:
+                                                      Image.asset(
+                                                        globals
+                                                            .elementShapesList[
+                                                        index]
+                                                            .flowElementImage!,
+                                                        width: 50,
+                                                        height: 50,
+                                                      ),
                                                     ),
                                                   ),
                                                 ),
-                                              ),
-                                              Padding(
-                                                padding:
-                                                const EdgeInsets
-                                                    .only(
-                                                    top: 5.0),
-                                                child: AutoSizeText(
-                                                  globals.elementShapesList[index].flowElementName! ??
-                                                      "",
-                                                  style: TextStyle(
-                                                    fontSize: 14,
-                                                    color: isSelected
-                                                        ? Colors.blue
-                                                        : Colors.black,
+                                                Padding(
+                                                  padding:
+                                                  const EdgeInsets
+                                                      .only(
+                                                      top: 5.0),
+                                                  child: AutoSizeText(
+                                                    globals
+                                                        .elementShapesList[index]
+                                                        .flowElementName! ??
+                                                        "",
+                                                    style: TextStyle(
+                                                      fontSize: 14,
+                                                      color: isSelected
+                                                          ? Colors.blue
+                                                          : Colors.black,
+                                                    ),
                                                   ),
                                                 ),
-                                              ),
-                                            ],
-                                          );
-                                        },
-                                      ),
-                                    )
+                                              ],
+                                            );
+                                          },
+                                        ),
+                                      )
                                   ),
 
                                   SizedBox(
@@ -210,269 +219,270 @@ class EndDrawerForAddElement extends GetWidget<HomeController> {
                                   child: Column(
                                     mainAxisAlignment: MainAxisAlignment.start,
                                     crossAxisAlignment:
-                                        CrossAxisAlignment.start,
+                                    CrossAxisAlignment.start,
                                     children: [
                                       (!(controller
-                                                  .homeEntityList[controller
-                                                      .selectedIndex.value]
-                                                  .flowchartName
-                                                  .compareTo("Master") ==
-                                              0))
+                                          .homeEntityList[controller
+                                          .selectedIndex.value]
+                                          .flowchartName
+                                          .compareTo("Master") ==
+                                          0))
                                           ?
 
-                                          ///QUESTION CATEGORIES
-                                          Padding(
-                                              padding:
-                                                  const EdgeInsets.all(8.0),
-                                              child: Column(
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.start,
-                                                children: [
-                                                  const Text(
-                                                    'Question Category',
-                                                    style: TextStyle(
-                                                      fontSize: 16,
-                                                      fontWeight:
-                                                          FontWeight.bold,
-                                                    ),
-                                                  ),
-                                                  SingleChipChoice(
-                                                    selectedValue: controller
-                                                        .selectedCategory.value,
-                                                    choiceList: controller
-                                                        .clinicalPathwayCategoriesList
-                                                        .categoryList,
-                                                    onChanged: (val) {
-                                                      controller.selectedCategory.value = val;
-                                                    },
-                                                    valueFn: (i, v) => v,
-                                                    labelFn: (i, v) => v,
-                                                    tooltipFn: (i, v) => v,
-                                                  ),
-                                                ],
-                                              ))
+                                      ///QUESTION CATEGORIES
+                                      Padding(
+                                          padding:
+                                          const EdgeInsets.all(8.0),
+                                          child: Column(
+                                            crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                            children: [
+                                              const Text(
+                                                'Question Category',
+                                                style: TextStyle(
+                                                  fontSize: 16,
+                                                  fontWeight:
+                                                  FontWeight.bold,
+                                                ),
+                                              ),
+                                              SingleChipChoice(
+                                                selectedValue: controller
+                                                    .selectedCategory.value,
+                                                choiceList: controller
+                                                    .clinicalPathwayCategoriesList
+                                                    .categoryList,
+                                                onChanged: (val) {
+                                                  controller.selectedCategory
+                                                      .value = val;
+                                                },
+                                                valueFn: (i, v) => v,
+                                                labelFn: (i, v) => v,
+                                                tooltipFn: (i, v) => v,
+                                              ),
+                                            ],
+                                          ))
                                           : Container(
                                         height: 0.0001,
                                       ),
 
-                                      
-                              //         ///flavour
-                              //           Padding(
-                              //             padding: const EdgeInsets.all(8.0),
-                              //             child: Column(
-                              //               crossAxisAlignment: CrossAxisAlignment.start,
-                              //               children: [
-                              //                 const Text(
-                              //                   'Add flavour',
-                              //                   style: TextStyle(
-                              //                     fontSize: 16,
-                              //                     fontWeight: FontWeight.bold,
-                              //                   ),
-                              //                 ),
-                              //                 Column(
-                              //                   crossAxisAlignment: CrossAxisAlignment.end,
-                              //                   children: controller.clinicalPathwayFlavourCategoriesList.flavourList
-                              //                       .map((flavor) => ExpansionTile(
-                              //                     title: Text(flavor),
-                              //                     children: [
-                              //                       MultipleChipChoice(
-                              //                         selectedValues: controller
-                              //                             .selectedGenders.value,
-                              //                         choiceList: controller
-                              //                             .genderGroupStandardList
-                              //                             .value
-                              //                             .genderGroupList,
-                              //                         onChanged: (val) {
-                              //                           controller.selectedGenders
-                              //                               .value = val;
-                              //                           controller
-                              //                               .selectedGenders.value
-                              //                               .removeWhere((gender) =>
-                              //                           gender.isEmpty);
-                              //                           // controller.selectedGenders.value = val;
-                              //                         },
-                              //                         valueFn: (i, v) => v,
-                              //                         labelFn: (i, v) => v,
-                              //                         tooltipFn: (i, v) => v,
-                              //                       ),
-                              //
-                              //                       ChipsChoice<String>.multiple(
-                              //                         value: controller
-                              //                             .selectedAges.value,
-                              //                         onChanged: (val) {
-                              //                           controller
-                              //                               .selectedAges.value = val;
-                              //                           controller.updateListOfAgeGroupItems();
-                              //                         },
-                              //                         choiceItems: C2Choice.listFrom<
-                              //                             String, AgeGroupItem>(
-                              //                           source: controller
-                              //                               .ageGroupItemList,
-                              //                           value: (i, v) => v.groupName!,
-                              //                           label: (i, v) => v.groupName!,
-                              //                           tooltip: (i, v) =>
-                              //                           "Start :${v.start}, End :${v.end}",
-                              //                         ),
-                              //                         choiceCheckmark: true,
-                              //                         choiceStyle: C2ChipStyle.filled(
-                              //                           overlayColor:
-                              //                           AppColor.primaryColor,
-                              //                           foregroundStyle:
-                              //                           const TextStyle(
-                              //                               fontWeight:
-                              //                               FontWeight.w700),
-                              //                           height: ScreenSize.height(
-                              //                               context) *
-                              //                               0.04,
-                              //                           color: AppColor.greyShimmer,
-                              //                           selectedStyle:
-                              //                           const C2ChipStyle(
-                              //                             elevation: 2,
-                              //                             backgroundColor:
-                              //                             AppColor.primaryColor,
-                              //                             borderRadius:
-                              //                             BorderRadius.all(
-                              //                               Radius.circular(25),
-                              //                             ),
-                              //                           ),
-                              //                         ),
-                              //                       ),
-                              //
-                              //
-                              //
-                              //
-                              //                       Row(
-                              //                         children: [
-                              //                           /// IS MANDATORY CHECKBOX
-                              //                           Padding(
-                              //                             padding:
-                              //                             const EdgeInsets.all(8.0),
-                              //                             child: Row(
-                              //                               children: [
-                              //                                 const Text(
-                              //                                   AppConst.isMandatory,
-                              //                                   style: TextStyle(
-                              //                                     fontSize: 16,
-                              //                                     fontWeight:
-                              //                                     FontWeight.bold,
-                              //                                   ),
-                              //                                 ),
-                              //                                 Checkbox(
-                              //                                   checkColor:
-                              //                                   AppColor.black,
-                              //                                   // focusColor: AppColor.primaryColor,
-                              //                                   activeColor: AppColor
-                              //                                       .primaryColor,
-                              //                                   value: controller
-                              //                                       .isMandatory.value,
-                              //                                   onChanged:
-                              //                                       (bool? value) {
-                              //                                     controller.isMandatory
-                              //                                         .value =
-                              //                                         value ?? false;
-                              //                                   },
-                              //                                 ),
-                              //                               ],
-                              //                             ),
-                              //                           ),
-                              //
-                              //
-                              //
-                              //                           /// IS FOLLOW UP
-                              //                           Padding(
-                              //                             padding:
-                              //                             const EdgeInsets.all(8.0),
-                              //                             child: Row(
-                              //                               children: [
-                              //                                 const Text(
-                              //                                   AppConst.isFollowUp,
-                              //                                   style: TextStyle(
-                              //                                     fontSize: 16,
-                              //                                     fontWeight:
-                              //                                     FontWeight.bold,
-                              //                                   ),
-                              //                                 ),
-                              //                                 Checkbox(
-                              //                                   checkColor:
-                              //                                   AppColor.black,
-                              //                                   // focusColor: AppColor.primaryColor,
-                              //                                   activeColor: AppColor
-                              //                                       .primaryColor,
-                              //                                   value: controller
-                              //                                       .isFollowUp.value,
-                              //                                   onChanged:
-                              //                                       (bool? value) {
-                              //                                     controller.updateIsFollowUp(value ?? false);
-                              //                                   },
-                              //                                 ),
-                              //                               ],
-                              //                             ),
-                              //                           ),
-                              //
-                              //
-                              //                         /// IS PREGNANT
-                              //                         Padding(
-                              //                           padding:
-                              //                           const EdgeInsets.all(8.0),
-                              //                           child: Row(
-                              //                             children: [
-                              //                               const Text(
-                              //                                 AppConst.isPregnant,
-                              //                                 style: TextStyle(
-                              //                                   fontSize: 16,
-                              //                                   fontWeight:
-                              //                                   FontWeight.bold,
-                              //                                 ),
-                              //                               ),
-                              //                               Checkbox(
-                              //                                 checkColor:
-                              //                                 AppColor.black,
-                              //                                 focusColor: AppColor.primaryColor,
-                              //                                 activeColor: AppColor.primaryColor,
-                              //                                 value: controller.isPregnancy.value,
-                              //                                 onChanged: (bool? value) {
-                              //                                   controller.updateIsPregnancy(value ?? false);
-                              //                                 },
-                              //                               ),
-                              //                             ],
-                              //                           ),
-                              //                         ),
-                              //                       ],
-                              //                     ),
-                              //                     SizedBox(height: 30),
-                              //                     Container(
-                              //                       height: 50,
-                              //                       width: 100,
-                              //                       child: (
-                              //                           Column(
-                              //                             crossAxisAlignment: CrossAxisAlignment.end,
-                              //                             children: [
-                              //                               OutlinedButton(onPressed:(){
-                              //                                 controller.updateDataInFirestore();
-                              //                                 }, child: Text("Submit"))
-                              //                             ],
-                              //                           )
-                              //                       ),
-                              //                     ),
-                              //                   ],
-                              //                 )).toList(),
-                              //               ),
-                              //             ],
-                              //           ),
-                              //         ),
-                              //
-                              //         Container(
-                              //                 height: 0.0001,
-                              //               ),
-                              //
-                              // ///######        ///-- add flavour code ends here --///   ###############
+
+                                      //         ///flavour
+                                      //           Padding(
+                                      //             padding: const EdgeInsets.all(8.0),
+                                      //             child: Column(
+                                      //               crossAxisAlignment: CrossAxisAlignment.start,
+                                      //               children: [
+                                      //                 const Text(
+                                      //                   'Add flavour',
+                                      //                   style: TextStyle(
+                                      //                     fontSize: 16,
+                                      //                     fontWeight: FontWeight.bold,
+                                      //                   ),
+                                      //                 ),
+                                      //                 Column(
+                                      //                   crossAxisAlignment: CrossAxisAlignment.end,
+                                      //                   children: controller.clinicalPathwayFlavourCategoriesList.flavourList
+                                      //                       .map((flavor) => ExpansionTile(
+                                      //                     title: Text(flavor),
+                                      //                     children: [
+                                      //                       MultipleChipChoice(
+                                      //                         selectedValues: controller
+                                      //                             .selectedGenders.value,
+                                      //                         choiceList: controller
+                                      //                             .genderGroupStandardList
+                                      //                             .value
+                                      //                             .genderGroupList,
+                                      //                         onChanged: (val) {
+                                      //                           controller.selectedGenders
+                                      //                               .value = val;
+                                      //                           controller
+                                      //                               .selectedGenders.value
+                                      //                               .removeWhere((gender) =>
+                                      //                           gender.isEmpty);
+                                      //                           // controller.selectedGenders.value = val;
+                                      //                         },
+                                      //                         valueFn: (i, v) => v,
+                                      //                         labelFn: (i, v) => v,
+                                      //                         tooltipFn: (i, v) => v,
+                                      //                       ),
+                                      //
+                                      //                       ChipsChoice<String>.multiple(
+                                      //                         value: controller
+                                      //                             .selectedAges.value,
+                                      //                         onChanged: (val) {
+                                      //                           controller
+                                      //                               .selectedAges.value = val;
+                                      //                           controller.updateListOfAgeGroupItems();
+                                      //                         },
+                                      //                         choiceItems: C2Choice.listFrom<
+                                      //                             String, AgeGroupItem>(
+                                      //                           source: controller
+                                      //                               .ageGroupItemList,
+                                      //                           value: (i, v) => v.groupName!,
+                                      //                           label: (i, v) => v.groupName!,
+                                      //                           tooltip: (i, v) =>
+                                      //                           "Start :${v.start}, End :${v.end}",
+                                      //                         ),
+                                      //                         choiceCheckmark: true,
+                                      //                         choiceStyle: C2ChipStyle.filled(
+                                      //                           overlayColor:
+                                      //                           AppColor.primaryColor,
+                                      //                           foregroundStyle:
+                                      //                           const TextStyle(
+                                      //                               fontWeight:
+                                      //                               FontWeight.w700),
+                                      //                           height: ScreenSize.height(
+                                      //                               context) *
+                                      //                               0.04,
+                                      //                           color: AppColor.greyShimmer,
+                                      //                           selectedStyle:
+                                      //                           const C2ChipStyle(
+                                      //                             elevation: 2,
+                                      //                             backgroundColor:
+                                      //                             AppColor.primaryColor,
+                                      //                             borderRadius:
+                                      //                             BorderRadius.all(
+                                      //                               Radius.circular(25),
+                                      //                             ),
+                                      //                           ),
+                                      //                         ),
+                                      //                       ),
+                                      //
+                                      //
+                                      //
+                                      //
+                                      //                       Row(
+                                      //                         children: [
+                                      //                           /// IS MANDATORY CHECKBOX
+                                      //                           Padding(
+                                      //                             padding:
+                                      //                             const EdgeInsets.all(8.0),
+                                      //                             child: Row(
+                                      //                               children: [
+                                      //                                 const Text(
+                                      //                                   AppConst.isMandatory,
+                                      //                                   style: TextStyle(
+                                      //                                     fontSize: 16,
+                                      //                                     fontWeight:
+                                      //                                     FontWeight.bold,
+                                      //                                   ),
+                                      //                                 ),
+                                      //                                 Checkbox(
+                                      //                                   checkColor:
+                                      //                                   AppColor.black,
+                                      //                                   // focusColor: AppColor.primaryColor,
+                                      //                                   activeColor: AppColor
+                                      //                                       .primaryColor,
+                                      //                                   value: controller
+                                      //                                       .isMandatory.value,
+                                      //                                   onChanged:
+                                      //                                       (bool? value) {
+                                      //                                     controller.isMandatory
+                                      //                                         .value =
+                                      //                                         value ?? false;
+                                      //                                   },
+                                      //                                 ),
+                                      //                               ],
+                                      //                             ),
+                                      //                           ),
+                                      //
+                                      //
+                                      //
+                                      //                           /// IS FOLLOW UP
+                                      //                           Padding(
+                                      //                             padding:
+                                      //                             const EdgeInsets.all(8.0),
+                                      //                             child: Row(
+                                      //                               children: [
+                                      //                                 const Text(
+                                      //                                   AppConst.isFollowUp,
+                                      //                                   style: TextStyle(
+                                      //                                     fontSize: 16,
+                                      //                                     fontWeight:
+                                      //                                     FontWeight.bold,
+                                      //                                   ),
+                                      //                                 ),
+                                      //                                 Checkbox(
+                                      //                                   checkColor:
+                                      //                                   AppColor.black,
+                                      //                                   // focusColor: AppColor.primaryColor,
+                                      //                                   activeColor: AppColor
+                                      //                                       .primaryColor,
+                                      //                                   value: controller
+                                      //                                       .isFollowUp.value,
+                                      //                                   onChanged:
+                                      //                                       (bool? value) {
+                                      //                                     controller.updateIsFollowUp(value ?? false);
+                                      //                                   },
+                                      //                                 ),
+                                      //                               ],
+                                      //                             ),
+                                      //                           ),
+                                      //
+                                      //
+                                      //                         /// IS PREGNANT
+                                      //                         Padding(
+                                      //                           padding:
+                                      //                           const EdgeInsets.all(8.0),
+                                      //                           child: Row(
+                                      //                             children: [
+                                      //                               const Text(
+                                      //                                 AppConst.isPregnant,
+                                      //                                 style: TextStyle(
+                                      //                                   fontSize: 16,
+                                      //                                   fontWeight:
+                                      //                                   FontWeight.bold,
+                                      //                                 ),
+                                      //                               ),
+                                      //                               Checkbox(
+                                      //                                 checkColor:
+                                      //                                 AppColor.black,
+                                      //                                 focusColor: AppColor.primaryColor,
+                                      //                                 activeColor: AppColor.primaryColor,
+                                      //                                 value: controller.isPregnancy.value,
+                                      //                                 onChanged: (bool? value) {
+                                      //                                   controller.updateIsPregnancy(value ?? false);
+                                      //                                 },
+                                      //                               ),
+                                      //                             ],
+                                      //                           ),
+                                      //                         ),
+                                      //                       ],
+                                      //                     ),
+                                      //                     SizedBox(height: 30),
+                                      //                     Container(
+                                      //                       height: 50,
+                                      //                       width: 100,
+                                      //                       child: (
+                                      //                           Column(
+                                      //                             crossAxisAlignment: CrossAxisAlignment.end,
+                                      //                             children: [
+                                      //                               OutlinedButton(onPressed:(){
+                                      //                                 controller.updateDataInFirestore();
+                                      //                                 }, child: Text("Submit"))
+                                      //                             ],
+                                      //                           )
+                                      //                       ),
+                                      //                     ),
+                                      //                   ],
+                                      //                 )).toList(),
+                                      //               ),
+                                      //             ],
+                                      //           ),
+                                      //         ),
+                                      //
+                                      //         Container(
+                                      //                 height: 0.0001,
+                                      //               ),
+                                      //
+                                      // ///######        ///-- add flavour code ends here --///   ###############
 
                                       /// GENDER
                                       Padding(
                                           padding: const EdgeInsets.all(5.0),
                                           child: Column(
                                             crossAxisAlignment:
-                                                CrossAxisAlignment.start,
+                                            CrossAxisAlignment.start,
                                             children: [
                                               const Text(
                                                 'Gender',
@@ -494,7 +504,7 @@ class EndDrawerForAddElement extends GetWidget<HomeController> {
                                                   controller
                                                       .selectedGenders.value
                                                       .removeWhere((gender) =>
-                                                          gender.isEmpty);
+                                                  gender.isEmpty);
                                                   // controller.selectedGenders.value = val;
                                                 },
                                                 valueFn: (i, v) => v,
@@ -509,7 +519,7 @@ class EndDrawerForAddElement extends GetWidget<HomeController> {
                                           padding: const EdgeInsets.all(8.0),
                                           child: Column(
                                             crossAxisAlignment:
-                                                CrossAxisAlignment.start,
+                                            CrossAxisAlignment.start,
                                             children: [
                                               Row(
                                                 children: [
@@ -518,7 +528,7 @@ class EndDrawerForAddElement extends GetWidget<HomeController> {
                                                     style: TextStyle(
                                                       fontSize: 16,
                                                       fontWeight:
-                                                          FontWeight.bold,
+                                                      FontWeight.bold,
                                                     ),
                                                   ),
                                                   IconButton(
@@ -547,7 +557,10 @@ class EndDrawerForAddElement extends GetWidget<HomeController> {
                                                     icon: const Icon(Icons
                                                         .edit_note),
                                                     onPressed: () {
-                                                      controller.updateIsExtented(isExtented: true,isOptionsDialog: false);
+                                                      controller
+                                                          .updateIsExtented(
+                                                          isExtented: true,
+                                                          isOptionsDialog: false);
                                                     },
                                                   ),
                                                 ],
@@ -558,36 +571,39 @@ class EndDrawerForAddElement extends GetWidget<HomeController> {
                                                 onChanged: (val) {
                                                   controller
                                                       .selectedAges.value = val;
-                                                  controller.updateListOfAgeGroupItems();
+                                                  controller
+                                                      .updateListOfAgeGroupItems();
                                                 },
                                                 choiceItems: C2Choice.listFrom<
-                                                    String, AgeGroupItem>(
+                                                    String,
+                                                    AgeGroupItem>(
                                                   source: controller
                                                       .ageGroupItemList!,
                                                   value: (i, v) => v.groupName!,
                                                   label: (i, v) => v.groupName!,
                                                   tooltip: (i, v) =>
-                                                      "Start :${v.start}, End :${v.end}",
+                                                  "Start :${v.start}, End :${v
+                                                      .end}",
                                                 ),
                                                 choiceCheckmark: true,
                                                 choiceStyle: C2ChipStyle.filled(
                                                   overlayColor:
-                                                      AppColor.primaryColor,
+                                                  AppColor.primaryColor,
                                                   foregroundStyle:
-                                                      const TextStyle(
-                                                          fontWeight:
-                                                              FontWeight.w700),
+                                                  const TextStyle(
+                                                      fontWeight:
+                                                      FontWeight.w700),
                                                   height: ScreenSize.height(
-                                                          context) *
+                                                      context) *
                                                       0.04,
                                                   color: AppColor.greyShimmer,
                                                   selectedStyle:
-                                                      const C2ChipStyle(
+                                                  const C2ChipStyle(
                                                     elevation: 2,
                                                     backgroundColor:
-                                                        AppColor.primaryColor,
+                                                    AppColor.primaryColor,
                                                     borderRadius:
-                                                        BorderRadius.all(
+                                                    BorderRadius.all(
                                                       Radius.circular(25),
                                                     ),
                                                   ),
@@ -602,7 +618,7 @@ class EndDrawerForAddElement extends GetWidget<HomeController> {
                                                         AgeGroupItem>(
                                                       context: context,
                                                       builder: (context) =>
-                                                          const AgeGroupItemInputDialog(),
+                                                      const AgeGroupItemInputDialog(),
                                                     );
                                                   },
                                                 ),
@@ -611,9 +627,13 @@ class EndDrawerForAddElement extends GetWidget<HomeController> {
                                                   icon: const Icon(
                                                       Icons.remove_circle),
                                                   onPressed: () async {
-                                                    bool? confirmRemoval = await showConfirmationDialog(context);
-                                                    if (confirmRemoval ?? false) {
-                                                      controller.ageGroupItemList.removeLast();
+                                                    bool? confirmRemoval = await showConfirmationDialog(
+                                                        context);
+                                                    if (confirmRemoval ??
+                                                        false) {
+                                                      controller
+                                                          .ageGroupItemList
+                                                          .removeLast();
                                                     }
                                                   },
                                                 ),
@@ -622,720 +642,927 @@ class EndDrawerForAddElement extends GetWidget<HomeController> {
                                           )),
 
                                       ///for connector
-                                      (globals.elementShapesList[controller.selectedIndexForElement.value].flowElementName?.compareTo(AppConst.connectorElement) == 0)
+                                      (globals.elementShapesList[controller
+                                          .selectedIndexForElement.value]
+                                          .flowElementName?.compareTo(
+                                          AppConst.connectorElement) == 0)
                                           ? SizedBox(
-                                              child: Column(
-                                                crossAxisAlignment:CrossAxisAlignment.start,
-                                                children: [
-                                                  const Text(
-                                                    AppConst.navigationFlowchart,
-                                                    style: TextStyle(
-                                                      fontSize: 16,
-                                                      fontWeight:
-                                                          FontWeight.bold,
-                                                    ),
-                                                  ),
-                                                  SingleChipChoice(
-                                                    selectedValue: controller.dashboards.value!,
-                                                    choiceList: controller.homeEntityList,
-                                                    onChanged: (val) {
-                                                      controller.dashboards.value = val;
-                                                      controller.updateDashboard(val);
-                                                    },
-                                                    valueFn: (i, v) =>
-                                                        v.flowchartName,
-                                                    labelFn: (i, v) =>
-                                                        v.flowchartName,
-                                                    tooltipFn: (i, v) => '',
-                                                  ),
-                                                ],
+                                        child: Column(
+                                          crossAxisAlignment: CrossAxisAlignment
+                                              .start,
+                                          children: [
+                                            const Text(
+                                              AppConst.navigationFlowchart,
+                                              style: TextStyle(
+                                                fontSize: 16,
+                                                fontWeight:
+                                                FontWeight.bold,
                                               ),
-                                            )
+                                            ),
+                                            SingleChipChoice(
+                                              selectedValue: controller
+                                                  .dashboards.value!,
+                                              choiceList: controller
+                                                  .homeEntityList,
+                                              onChanged: (val) {
+                                                controller.dashboards.value =
+                                                    val;
+                                                controller.updateDashboard(val);
+                                              },
+                                              valueFn: (i, v) =>
+                                              v.flowchartName,
+                                              labelFn: (i, v) =>
+                                              v.flowchartName,
+                                              tooltipFn: (i, v) => '',
+                                            ),
+                                          ],
+                                        ),
+                                      )
                                           : SizedBox(
-                                              child: Column(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.start,
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
-                                              children: [
-                                                ///Question textbox
-                                                SizedBox(
-                                                  width: ScreenSize.width(
-                                                          context) *
-                                                      0.5,
-                                                  child: Padding(
-                                                    padding:
-                                                        const EdgeInsets.all(
-                                                            8.0),
-                                                    child: Column(
-                                                      crossAxisAlignment:
-                                                          CrossAxisAlignment
-                                                              .start,
-                                                      children: [
-                                                        const Text(
-                                                          AppConst.questionText,
-                                                          style: TextStyle(
-                                                            fontSize: 16,
-                                                            fontWeight:
-                                                                FontWeight.bold,
-                                                          ),
-                                                        ),
-                                                        const SizedBox(
-                                                            height: 10),
-                                                        Container(
-                                                          decoration:
-                                                              BoxDecoration(
-                                                            border: Border.all(
-                                                                color: Colors
-                                                                    .grey),
-                                                            borderRadius:
-                                                                BorderRadius
-                                                                    .circular(
-                                                                        15),
-                                                          ),
-                                                          child:
-                                                              AnimatedBuilder(animation: controller.elementTextController,
-                                                            builder: (context,child) {
-                                                              int lines = controller.elementTextController.text.split('\n').length;
-                                                              return ConstrainedBox(
-                                                                constraints:
-                                                                    BoxConstraints(
-                                                                  minHeight: lines *
-                                                                      24.0, // Adjust the line height as needed
-                                                                ),
-                                                                child: Padding(
-                                                                  padding: const EdgeInsets
-                                                                          .symmetric(
-                                                                      horizontal:
-                                                                          15),
-                                                                  child:
-                                                                      TextField(
-                                                                    autocorrect:
-                                                                        true,
-                                                                    maxLines:
-                                                                        null,
-                                                                    controller: controller.elementTextController,
-                                                                    onChanged:(text) {
-                                                                      controller.questionTxt.value = text.toString();
-                                                                      debugPrint('User submitted text: $text');
-                                                                      debugPrint('User submitted text: ${controller.questionTxt.value}');
-                                                                    },
-                                                                    decoration:
-                                                                        const InputDecoration(
-                                                                      hintText:
-                                                                      AppConst.enterYourQuestionTextHere,
-                                                                      border: InputBorder
-                                                                          .none,
-                                                                    ),
-                                                                  ),
-                                                                ),
-                                                              );
-                                                            },
-                                                          ),
-                                                        ),
-                                                      ],
-                                                    ),
-                                                  ),
-                                                ),
+                                          child: Column(
+                                            mainAxisAlignment:
+                                            MainAxisAlignment.start,
+                                            crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                            children: [
 
-                                                ///SELECTION MODE FOR (RECTANGLE --> TEXT , NUMERIC , DATE , DATE&TIME ),(PENTAGONAL --> OPTIONS, MULTI-SELECTIONS)
-                                                (globals.elementShapesList[controller.selectedIndexForElement.value].typeMode.isNotEmpty)
-                                                    ? Obx(() {
-                                                        final isRectangle = globals.elementShapesList[controller.selectedIndexForElement.value]
-                                                                .flowElementName
-                                                                ?.compareTo(AppConst
-                                                                    .rectangleElement) ==
-                                                            0;
-                                                        final selectedMode =
-                                                            controller
-                                                                .selectedMode
-                                                                .value;
-                                                        return Row(
-                                                          children: [
-                                                            Padding(
-                                                              padding:
-                                                                  const EdgeInsets
-                                                                      .all(8.0),
-                                                              child: Column(
-                                                                crossAxisAlignment:
-                                                                    CrossAxisAlignment
-                                                                        .start,
-                                                                children: [
-                                                                  const Text(
-                                                                    AppConst.selectionModes,
-                                                                    style:
-                                                                        TextStyle(
-                                                                      fontSize:
-                                                                          16,
-                                                                      fontWeight:
-                                                                          FontWeight
-                                                                              .bold,
-                                                                    ),
-                                                                  ),
-                                                                  SingleChipChoice(
-                                                                    selectedValue:
-                                                                        controller
-                                                                            .selectedMode
-                                                                            .value,
-                                                                    choiceList: globals
-                                                                        .elementShapesList[controller
-                                                                            .selectedIndexForElement
-                                                                            .value]
-                                                                        .typeMode,
-                                                                    onChanged:
-                                                                        (val) {
-                                                                      controller
-                                                                          .selectedMode
-                                                                          .value = val;
-                                                                      if (val =="isOptions" ||
-                                                                          val =="isMultiOptions") {
-                                                                        controller.updateIsExtented(isExtented:true, isOptionsDialog: true);
-                                                                      }
-                                                                    },
-                                                                    valueFn:(i, v) =>v,
-                                                                    labelFn:(i, v) => v,
-                                                                    tooltipFn:(i, v) => v,
-                                                                  ),
-
-                                                             /// EDIT TEXT FOR ADDING LIMIT TO THE NUMBER
-                                                                  (selectedMode ==
-                                                                          "isNumeric")
-                                                                      ? SizedBox(
-                                                                          width:
-                                                                              400,
-                                                                          height:
-                                                                              200,
-                                                                          child:
-                                                                              Column(
-                                                                            crossAxisAlignment:
-                                                                                CrossAxisAlignment.start,
-                                                                            children: [
-                                                                              Row(
-                                                                                children: [
-                                                                                  const Expanded(
-                                                                                    flex: 2,
-                                                                                    child: Text(
-                                                                                      AppConst.enterNumberRange,
-                                                                                      style: TextStyle(
-                                                                                        fontSize: 16,
-                                                                                        fontWeight: FontWeight.bold,
-                                                                                      ),
-                                                                                    ),
-                                                                                  ),
-                                                                                  const SizedBox(
-                                                                                    width: 10,
-                                                                                  ),
-                                                                                  Expanded(
-                                                                                    flex: 3,
-                                                                                    child: Row(
-                                                                                      children: [
-                                                                                        Expanded(
-                                                                                          child: TextField(
-                                                                                            controller: controller.startController,
-                                                                                            inputFormatters: [
-                                                                                              FilteringTextInputFormatter.allow(RegExp(r'^(\d{0,3}(\.\d{0,3})?)$')),
-                                                                                            ],
-                                                                                            onChanged: (value) {
-                                                                                              controller.updateNumber();
-                                                                                            },
-                                                                                            decoration: const InputDecoration(
-                                                                                              hintText: "Start",
-                                                                                              border: OutlineInputBorder(),
-                                                                                            ),
-                                                                                          ),
-                                                                                        ),
-                                                                                        const SizedBox(width: 8),
-                                                                                        Expanded(
-                                                                                          child: TextField(
-                                                                                            controller: controller.endController,
-                                                                                            inputFormatters: [
-                                                                                              FilteringTextInputFormatter.allow(RegExp(r'^(\d{0,3}(\.\d{0,3})?)$')),
-                                                                                            ],
-                                                                                            onChanged: (value) {
-                                                                                              controller.updateNumber();
-                                                                                            },
-                                                                                            decoration: const InputDecoration(
-                                                                                              hintText: "End",
-                                                                                              border: OutlineInputBorder(),
-                                                                                            ),
-                                                                                          ),
-                                                                                        ),
-                                                                                      ],
-                                                                                    ),
-                                                                                  ),
-                                                                                ],
-                                                                              ),
-                                                                              const SizedBox(
-                                                                                height: 15,
-                                                                              ),
-                                                                              Row(
-                                                                                crossAxisAlignment: CrossAxisAlignment.center,
-                                                                                children: [
-                                                                                  const Expanded(
-                                                                                    flex: 2,
-                                                                                    child: Text(
-                                                                                      AppConst.enterNumberLimit,
-                                                                                      style: TextStyle(
-                                                                                        fontSize: 16,
-                                                                                        fontWeight: FontWeight.bold,
-                                                                                      ),
-                                                                                    ),
-                                                                                  ),
-                                                                                  const SizedBox(width: 10),
-                                                                                  Expanded(
-                                                                                    flex: 3,
-                                                                                    child: TextField(
-                                                                                      controller: controller.maxController,
-                                                                                      inputFormatters: [
-                                                                                        FilteringTextInputFormatter.digitsOnly,
-                                                                                        FilteringTextInputFormatter(RegExp(r'^([1-4]?\d|50)$'), allow: true),
-                                                                                      ],
-                                                                                      onChanged: (value) {
-                                                                                        controller.updateNumber();
-                                                                                      },
-                                                                                      decoration: const InputDecoration(
-                                                                                        hintText: AppConst.enterNumberLimitMax,
-                                                                                        border: OutlineInputBorder(),
-                                                                                      ),
-                                                                                    ),
-                                                                                  ),
-                                                                                ],
-                                                                              ),
-                                                                              const SizedBox(
-                                                                                height: 15,
-                                                                              ),
-                                                                              Row(
-                                                                                children: [
-                                                                                  const Expanded(
-                                                                                    flex: 2,
-                                                                                    child: Text(
-                                                                                      AppConst.enterNumberPattern,
-                                                                                      style: TextStyle(
-                                                                                        fontSize: 16,
-                                                                                        fontWeight: FontWeight.bold,
-                                                                                      ),
-                                                                                    ),
-                                                                                  ),
-                                                                                  const SizedBox(width: 10),
-                                                                                  Expanded(
-                                                                                    flex: 3,
-                                                                                    child: TextField(
-                                                                                      controller: controller.patternController,
-                                                                                      onChanged: (value) {
-                                                                                        controller.updateNumber();
-                                                                                      },
-                                                                                      decoration: const InputDecoration(
-                                                                                        hintText: AppConst.enterPattern,
-                                                                                        border: OutlineInputBorder(),
-                                                                                      ),
-                                                                                    ),
-                                                                                  ),
-                                                                                ],
-                                                                              )
-                                                                            ],
-                                                                          ),
-                                                                        )
-                                                                      : Container(
-                                                                          height:
-                                                                              0.001),
-                                                                ],
-                                                              ),
-                                                            ),
-                                                          ],
-                                                        );
-                                                      })
-                                                    : Container(height: 0.001),
-
-                                                /// __________________________________________>>>>
-                                                ((controller.selectedMode.value.compareTo("isOptions") == 0 ||
-                                                            controller.selectedMode.value.compareTo("isMultiOptions") ==0) &&
-                                                        (controller.options.length > 1))
-                                                    ? ChipsChoice<String>.single(
-                                                        choiceItems:
-                                                            C2Choice.listFrom<
-                                                                String, String>(
-                                                          source: controller
-                                                              .options.value,
-                                                          value: (i, v) => v,
-                                                          label: (i, v) => v,
-                                                          tooltip: (i, v) => v,
-                                                        ),
-                                                        choiceCheckmark: false,
-                                                        choiceStyle:
-                                                            C2ChipStyle.filled(
-                                                          overlayColor: AppColor
-                                                              .primaryColor,
-                                                          foregroundStyle:
-                                                              const TextStyle(
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .w700),
-                                                          height:
-                                                              ScreenSize.height(
-                                                                      context) *
-                                                                  0.04,
-                                                          color: AppColor
-                                                              .greyShimmer,
-                                                        ),
-                                                        leading: IconButton(
-                                                          tooltip:
-                                                              'Edit Choice',
-                                                          icon: const Icon(Icons
-                                                              .edit_note_rounded),
-                                                          onPressed: () async {
-                                                            controller
-                                                                .refreshTextController(
-                                                                    controller
-                                                                        .options
-                                                                        .value);
-                                                            controller
-                                                                .updateIsExtented(
-                                                                    isExtented:
-                                                                        true, isOptionsDialog: true);
-                                                          },
-                                                        ),
-                                                        value: '',
-                                                        onChanged:
-                                                            (String value) {},
-                                                      )
-                                                    : Container(height: 0.001),
-
-                                                Row(
-                                                  children: [
-                                                    /// IS MANDATORY CHECKBOX
-                                                    Padding(
-                                                      padding:
-                                                          const EdgeInsets.all(8.0),
-                                                      child: Row(
-                                                        children: [
-                                                          const Text(
-                                                            AppConst.isMandatory,
-                                                            style: TextStyle(
-                                                              fontSize: 16,
-                                                              fontWeight:
-                                                                  FontWeight.bold,
-                                                            ),
-                                                          ),
-                                                          Checkbox(
-                                                            checkColor:
-                                                                AppColor.black,
-                                                            // focusColor: AppColor.primaryColor,
-                                                            activeColor: AppColor
-                                                                .primaryColor,
-                                                            value: controller
-                                                                .isMandatory.value,
-                                                            onChanged:
-                                                                (bool? value) {
-                                                              controller.isMandatory
-                                                                      .value =
-                                                                  value ?? false;
-                                                            },
-                                                          ),
-                                                        ],
-                                                      ),
-                                                    ),
-
-                                                    /// IS FOLLOW UP
-                                                    Padding(
-                                                      padding:
-                                                      const EdgeInsets.all(8.0),
-                                                      child: Row(
-                                                        children: [
-                                                          const Text(
-                                                            AppConst.isFollowUp,
-                                                            style: TextStyle(
-                                                              fontSize: 16,
-                                                              fontWeight:
-                                                              FontWeight.bold,
-                                                            ),
-                                                          ),
-                                                          Checkbox(
-                                                            checkColor:
-                                                            AppColor.black,
-                                                            // focusColor: AppColor.primaryColor,
-                                                            activeColor: AppColor
-                                                                .primaryColor,
-                                                            value: controller
-                                                                .isFollowUp.value,
-                                                            onChanged:
-                                                                (bool? value) {
-                                                              controller.updateIsFollowUp(value ?? false);
-                                                            },
-                                                          ),
-                                                        ],
-                                                      ),
-                                                    ),
-
-                                                    /// IS PREGNANT
-                                                    Padding(
-                                                      padding:
-                                                      const EdgeInsets.all(8.0),
-                                                      child: Row(
-                                                        children: [
-                                                          const Text(
-                                                            AppConst.isPregnant,
-                                                            style: TextStyle(
-                                                              fontSize: 16,
-                                                              fontWeight:
-                                                              FontWeight.bold,
-                                                            ),
-                                                          ),
-                                                          Checkbox(
-                                                            checkColor:
-                                                            AppColor.black,
-                                                            focusColor: AppColor.primaryColor,
-                                                            activeColor: AppColor.primaryColor,
-                                                            value: controller.isPregnancy.value,
-                                                            onChanged: (bool? value) {
-                                                              controller.updateIsPregnancy(value ?? false);
-                                                            },
-                                                          ),
-
-
-                                                        ],
-                                                      ),
-
-
-
-                                                    ),
-                                                  ],
-                                                ),
-
-
-                                                ///flavour Section
-                                                Padding(
-                                                  padding: const EdgeInsets.all(8.0),
+                                              ///Question textbox
+                                              SizedBox(
+                                                width: ScreenSize.width(
+                                                    context) *
+                                                    0.5,
+                                                child: Padding(
+                                                  padding:
+                                                  const EdgeInsets.all(
+                                                      8.0),
                                                   child: Column(
-                                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                                    crossAxisAlignment:
+                                                    CrossAxisAlignment
+                                                        .start,
                                                     children: [
                                                       const Text(
-                                                        'Add flavour',
+                                                        AppConst.questionText,
                                                         style: TextStyle(
                                                           fontSize: 16,
-                                                          fontWeight: FontWeight.bold,
+                                                          fontWeight:
+                                                          FontWeight.bold,
                                                         ),
                                                       ),
-                                                      Column(
-                                                        crossAxisAlignment: CrossAxisAlignment.end,
-                                                        children: controller.clinicalPathwayFlavourCategoriesList.flavourList
-                                                            .map((flavor) => ExpansionTile(
-                                                          title: Text(flavor),
-                                                          children: [
-                                                            MultipleChipChoice(
-                                                              selectedValues: controller
-                                                                  .selectedGenders.value,
-                                                              choiceList: controller
-                                                                  .genderGroupStandardList
-                                                                  .value
-                                                                  .genderGroupList,
-                                                              onChanged: (val) {
-                                                                controller.selectedGenders
-                                                                    .value = val;
-                                                                controller
-                                                                    .selectedGenders.value
-                                                                    .removeWhere((gender) =>
-                                                                gender.isEmpty);
-                                                                // controller.selectedGenders.value = val;
-                                                              },
-                                                              valueFn: (i, v) => v,
-                                                              labelFn: (i, v) => v,
-                                                              tooltipFn: (i, v) => v,
-                                                            ),
-
-                                                            ChipsChoice<String>.multiple(
-                                                              value: controller
-                                                                  .selectedAges.value,
-                                                              onChanged: (val) {
-                                                                controller
-                                                                    .selectedAges.value = val;
-                                                                controller.updateListOfAgeGroupItems();
-                                                              },
-                                                              choiceItems: C2Choice.listFrom<
-                                                                  String, AgeGroupItem>(
-                                                                source: controller
-                                                                    .ageGroupItemList,
-                                                                value: (i, v) => v.groupName!,
-                                                                label: (i, v) => v.groupName!,
-                                                                tooltip: (i, v) =>
-                                                                "Start :${v.start}, End :${v.end}",
+                                                      const SizedBox(
+                                                          height: 10),
+                                                      Container(
+                                                        decoration:
+                                                        BoxDecoration(
+                                                          border: Border.all(
+                                                              color: Colors
+                                                                  .grey),
+                                                          borderRadius:
+                                                          BorderRadius
+                                                              .circular(
+                                                              15),
+                                                        ),
+                                                        child:
+                                                        AnimatedBuilder(
+                                                          animation: controller
+                                                              .elementTextController,
+                                                          builder: (context,
+                                                              child) {
+                                                            int lines = controller
+                                                                .elementTextController
+                                                                .text
+                                                                .split('\n')
+                                                                .length;
+                                                            return ConstrainedBox(
+                                                              constraints:
+                                                              BoxConstraints(
+                                                                minHeight: lines *
+                                                                    24.0, // Adjust the line height as needed
                                                               ),
-                                                              choiceCheckmark: true,
-                                                              choiceStyle: C2ChipStyle.filled(
-                                                                overlayColor:
-                                                                AppColor.primaryColor,
-                                                                foregroundStyle:
-                                                                const TextStyle(
-                                                                    fontWeight:
-                                                                    FontWeight.w700),
-                                                                height: ScreenSize.height(
-                                                                    context) *
-                                                                    0.04,
-                                                                color: AppColor.greyShimmer,
-                                                                selectedStyle:
-                                                                const C2ChipStyle(
-                                                                  elevation: 2,
-                                                                  backgroundColor:
-                                                                  AppColor.primaryColor,
-                                                                  borderRadius:
-                                                                  BorderRadius.all(
-                                                                    Radius.circular(25),
+                                                              child: Padding(
+                                                                padding: const EdgeInsets
+                                                                    .symmetric(
+                                                                    horizontal:
+                                                                    15),
+                                                                child:
+                                                                TextField(
+                                                                  autocorrect:
+                                                                  true,
+                                                                  maxLines:
+                                                                  null,
+                                                                  controller: controller
+                                                                      .elementTextController,
+                                                                  onChanged: (
+                                                                      text) {
+                                                                    controller
+                                                                        .questionTxt
+                                                                        .value =
+                                                                        text
+                                                                            .toString();
+                                                                    debugPrint(
+                                                                        'User submitted text: $text');
+                                                                    debugPrint(
+                                                                        'User submitted text: ${controller
+                                                                            .questionTxt
+                                                                            .value}');
+                                                                  },
+                                                                  decoration:
+                                                                  const InputDecoration(
+                                                                    hintText:
+                                                                    AppConst
+                                                                        .enterYourQuestionTextHere,
+                                                                    border: InputBorder
+                                                                        .none,
                                                                   ),
                                                                 ),
-                                                             ),
-                                                            ),
-
-
-                                                            Row(
-                                                              children: [
-                                                                /// IS MANDATORY CHECKBOX
-                                                                Padding(
-                                                                  padding:
-                                                                  const EdgeInsets.all(8.0),
-                                                                  child: Row(
-                                                                    children: [
-                                                                      const Text(
-                                                                        AppConst.isMandatory,
-                                                                        style: TextStyle(
-                                                                          fontSize: 16,
-                                                                          fontWeight:
-                                                                          FontWeight.bold,
-                                                                        ),
-                                                                      ),
-                                                                      Checkbox(
-                                                                        checkColor:
-                                                                        AppColor.black,
-                                                                        // focusColor: AppColor.primaryColor,
-                                                                        activeColor: AppColor
-                                                                            .primaryColor,
-                                                                        value: controller
-                                                                            .isMandatory.value,
-                                                                        onChanged:
-                                                                            (bool? value) {
-                                                                          controller.isMandatory
-                                                                              .value =
-                                                                              value ?? false;
-                                                                        },
-                                                                      ),
-                                                                    ],
-                                                                  ),
-                                                                ),
-
-
-                                                                /// IS FOLLOW UP
-                                                                Padding(
-                                                                  padding:
-                                                                  const EdgeInsets.all(8.0),
-                                                                  child: Row(
-                                                                    children: [
-                                                                      const Text(
-                                                                        AppConst.isFollowUp,
-                                                                        style: TextStyle(
-                                                                          fontSize: 16,
-                                                                          fontWeight:
-                                                                          FontWeight.bold,
-                                                                        ),
-                                                                      ),
-                                                                      Checkbox(
-                                                                        checkColor:
-                                                                        AppColor.black,
-                                                                        // focusColor: AppColor.primaryColor,
-                                                                        activeColor: AppColor
-                                                                            .primaryColor,
-                                                                        value: controller
-                                                                            .isFollowUp.value,
-                                                                        onChanged:
-                                                                            (bool? value) {
-                                                                          controller.updateIsFollowUp(value ?? false);
-                                                                        },
-                                                                      ),
-                                                                    ],
-                                                                  ),
-                                                                ),
-
-                                                                /// IS PREGNANT
-                                                                Padding(
-                                                                  padding:
-                                                                  const EdgeInsets.all(8.0),
-                                                                  child: Row(
-                                                                    children: [
-                                                                      const Text(
-                                                                        AppConst.isPregnant,
-                                                                        style: TextStyle(
-                                                                          fontSize: 16,
-                                                                          fontWeight:
-                                                                          FontWeight.bold,
-                                                                        ),
-                                                                      ),
-                                                                      Checkbox(
-                                                                        checkColor:
-                                                                        AppColor.black,
-                                                                        focusColor: AppColor.primaryColor,
-                                                                        activeColor: AppColor.primaryColor,
-                                                                        value: controller.isPregnancy.value,
-                                                                        onChanged: (bool? value) {
-                                                                          controller.updateIsPregnancy(value ?? false);
-                                                                        },
-                                                                      ),
-                                                                    ],
-                                                                  ),
-                                                                ),
-                                                              ],
-                                                            ),
-                                                            SizedBox(height: 30),
-                                                            Container(
-                                                              height: 40,
-                                                              width: 100,
-                                                              child: Column(
-                                                                crossAxisAlignment: CrossAxisAlignment.end,
-                                                               // mainAxisAlignment: MainAxisAlignment.center,
-                                                                children: [
-                                                                  Row(
-                                                                    mainAxisAlignment: MainAxisAlignment.start,
-                                                                    children: [
-                                                                      OutlinedButton(
-                                                                        onPressed: () {
-                                                                          controller.updateDataInFirestore('adk');
-                                                                        },
-                                                                        child: Text("Submit ADK Data"),
-                                                                      ),
-                                                                      // SizedBox(width: 10,),
-                                                                      // OutlinedButton(
-                                                                      //   onPressed: () {
-                                                                      //  //  controller. updateAAMCDataInFirestore();
-                                                                      //   },
-                                                                      //   child: Text("Submit AAMC Data"),
-                                                                      // ),
-                                                                    ],
-                                                                  ),
-                                                                ],
                                                               ),
-                                                            ),
-
-                                                          ],
-                                                        ))
-                                                            .toList(),
+                                                            );
+                                                          },
+                                                        ),
                                                       ),
                                                     ],
                                                   ),
                                                 ),
+                                              ),
 
-                                                Container(
-                                                  height: 0.0001,
+                                              ///SELECTION MODE FOR (RECTANGLE --> TEXT , NUMERIC , DATE , DATE&TIME ),(PENTAGONAL --> OPTIONS, MULTI-SELECTIONS)
+                                              (globals
+                                                  .elementShapesList[controller
+                                                  .selectedIndexForElement
+                                                  .value].typeMode.isNotEmpty)
+                                                  ? Obx(() {
+                                                final isRectangle = globals
+                                                    .elementShapesList[controller
+                                                    .selectedIndexForElement
+                                                    .value]
+                                                    .flowElementName
+                                                    ?.compareTo(AppConst
+                                                    .rectangleElement) ==
+                                                    0;
+                                                final selectedMode =
+                                                    controller
+                                                        .selectedMode
+                                                        .value;
+                                                return Row(
+                                                  children: [
+                                                    Padding(
+                                                      padding:
+                                                      const EdgeInsets
+                                                          .all(8.0),
+                                                      child: Column(
+                                                        crossAxisAlignment:
+                                                        CrossAxisAlignment
+                                                            .start,
+                                                        children: [
+                                                          const Text(
+                                                            AppConst
+                                                                .selectionModes,
+                                                            style:
+                                                            TextStyle(
+                                                              fontSize:
+                                                              16,
+                                                              fontWeight:
+                                                              FontWeight
+                                                                  .bold,
+                                                            ),
+                                                          ),
+                                                          SingleChipChoice(
+                                                            selectedValue:
+                                                            controller
+                                                                .selectedMode
+                                                                .value,
+                                                            choiceList: globals
+                                                                .elementShapesList[controller
+                                                                .selectedIndexForElement
+                                                                .value]
+                                                                .typeMode,
+                                                            onChanged:
+                                                                (val) {
+                                                              controller
+                                                                  .selectedMode
+                                                                  .value = val;
+                                                              if (val ==
+                                                                  "isOptions" ||
+                                                                  val ==
+                                                                      "isMultiOptions") {
+                                                                controller
+                                                                    .updateIsExtented(
+                                                                    isExtented: true,
+                                                                    isOptionsDialog: true);
+                                                              }
+                                                            },
+                                                            valueFn: (i,
+                                                                v) => v,
+                                                            labelFn: (i,
+                                                                v) => v,
+                                                            tooltipFn: (i,
+                                                                v) => v,
+                                                          ),
+
+                                                          /// EDIT TEXT FOR ADDING LIMIT TO THE NUMBER
+                                                          (selectedMode ==
+                                                              "isNumeric")
+                                                              ? SizedBox(
+                                                            width:
+                                                            400,
+                                                            height:
+                                                            200,
+                                                            child:
+                                                            Column(
+                                                              crossAxisAlignment:
+                                                              CrossAxisAlignment
+                                                                  .start,
+                                                              children: [
+                                                                Row(
+                                                                  children: [
+                                                                    const Expanded(
+                                                                      flex: 2,
+                                                                      child: Text(
+                                                                        AppConst
+                                                                            .enterNumberRange,
+                                                                        style: TextStyle(
+                                                                          fontSize: 16,
+                                                                          fontWeight: FontWeight
+                                                                              .bold,
+                                                                        ),
+                                                                      ),
+                                                                    ),
+                                                                    const SizedBox(
+                                                                      width: 10,
+                                                                    ),
+                                                                    Expanded(
+                                                                      flex: 3,
+                                                                      child: Row(
+                                                                        children: [
+                                                                          Expanded(
+                                                                            child: TextField(
+                                                                              controller: controller
+                                                                                  .startController,
+                                                                              inputFormatters: [
+                                                                                FilteringTextInputFormatter
+                                                                                    .allow(
+                                                                                    RegExp(
+                                                                                        r'^(\d{0,3}(\.\d{0,3})?)$')),
+                                                                              ],
+                                                                              onChanged: (
+                                                                                  value) {
+                                                                                controller
+                                                                                    .updateNumber();
+                                                                              },
+                                                                              decoration: const InputDecoration(
+                                                                                hintText: "Start",
+                                                                                border: OutlineInputBorder(),
+                                                                              ),
+                                                                            ),
+                                                                          ),
+                                                                          const SizedBox(
+                                                                              width: 8),
+                                                                          Expanded(
+                                                                            child: TextField(
+                                                                              controller: controller
+                                                                                  .endController,
+                                                                              inputFormatters: [
+                                                                                FilteringTextInputFormatter
+                                                                                    .allow(
+                                                                                    RegExp(
+                                                                                        r'^(\d{0,3}(\.\d{0,3})?)$')),
+                                                                              ],
+                                                                              onChanged: (
+                                                                                  value) {
+                                                                                controller
+                                                                                    .updateNumber();
+                                                                              },
+                                                                              decoration: const InputDecoration(
+                                                                                hintText: "End",
+                                                                                border: OutlineInputBorder(),
+                                                                              ),
+                                                                            ),
+                                                                          ),
+                                                                        ],
+                                                                      ),
+                                                                    ),
+                                                                  ],
+                                                                ),
+                                                                const SizedBox(
+                                                                  height: 15,
+                                                                ),
+                                                                Row(
+                                                                  crossAxisAlignment: CrossAxisAlignment
+                                                                      .center,
+                                                                  children: [
+                                                                    const Expanded(
+                                                                      flex: 2,
+                                                                      child: Text(
+                                                                        AppConst
+                                                                            .enterNumberLimit,
+                                                                        style: TextStyle(
+                                                                          fontSize: 16,
+                                                                          fontWeight: FontWeight
+                                                                              .bold,
+                                                                        ),
+                                                                      ),
+                                                                    ),
+                                                                    const SizedBox(
+                                                                        width: 10),
+                                                                    Expanded(
+                                                                      flex: 3,
+                                                                      child: TextField(
+                                                                        controller: controller
+                                                                            .maxController,
+                                                                        inputFormatters: [
+                                                                          FilteringTextInputFormatter
+                                                                              .digitsOnly,
+                                                                          FilteringTextInputFormatter(
+                                                                              RegExp(
+                                                                                  r'^([1-4]?\d|50)$'),
+                                                                              allow: true),
+                                                                        ],
+                                                                        onChanged: (
+                                                                            value) {
+                                                                          controller
+                                                                              .updateNumber();
+                                                                        },
+                                                                        decoration: const InputDecoration(
+                                                                          hintText: AppConst
+                                                                              .enterNumberLimitMax,
+                                                                          border: OutlineInputBorder(),
+                                                                        ),
+                                                                      ),
+                                                                    ),
+                                                                  ],
+                                                                ),
+                                                                const SizedBox(
+                                                                  height: 15,
+                                                                ),
+                                                                Row(
+                                                                  children: [
+                                                                    const Expanded(
+                                                                      flex: 2,
+                                                                      child: Text(
+                                                                        AppConst
+                                                                            .enterNumberPattern,
+                                                                        style: TextStyle(
+                                                                          fontSize: 16,
+                                                                          fontWeight: FontWeight
+                                                                              .bold,
+                                                                        ),
+                                                                      ),
+                                                                    ),
+                                                                    const SizedBox(
+                                                                        width: 10),
+                                                                    Expanded(
+                                                                      flex: 3,
+                                                                      child: TextField(
+                                                                        controller: controller
+                                                                            .patternController,
+                                                                        onChanged: (
+                                                                            value) {
+                                                                          controller
+                                                                              .updateNumber();
+                                                                        },
+                                                                        decoration: const InputDecoration(
+                                                                          hintText: AppConst
+                                                                              .enterPattern,
+                                                                          border: OutlineInputBorder(),
+                                                                        ),
+                                                                      ),
+                                                                    ),
+                                                                  ],
+                                                                )
+                                                              ],
+                                                            ),
+                                                          )
+                                                              : Container(
+                                                              height:
+                                                              0.001),
+                                                        ],
+                                                      ),
+                                                    ),
+                                                  ],
+                                                );
+                                              })
+                                                  : Container(height: 0.001),
+
+                                              /// __________________________________________>>>>
+                                              ((controller.selectedMode.value
+                                                  .compareTo("isOptions") ==
+                                                  0 ||
+                                                  controller.selectedMode.value
+                                                      .compareTo(
+                                                      "isMultiOptions") == 0) &&
+                                                  (controller.options.length >
+                                                      1))
+                                                  ? ChipsChoice<String>.single(
+                                                choiceItems:
+                                                C2Choice.listFrom<
+                                                    String,
+                                                    String>(
+                                                  source: controller
+                                                      .options.value,
+                                                  value: (i, v) => v,
+                                                  label: (i, v) => v,
+                                                  tooltip: (i, v) => v,
                                                 ),
-                                              ],
-                                            )),
+                                                choiceCheckmark: false,
+                                                choiceStyle:
+                                                C2ChipStyle.filled(
+                                                  overlayColor: AppColor
+                                                      .primaryColor,
+                                                  foregroundStyle:
+                                                  const TextStyle(
+                                                      fontWeight:
+                                                      FontWeight
+                                                          .w700),
+                                                  height:
+                                                  ScreenSize.height(
+                                                      context) *
+                                                      0.04,
+                                                  color: AppColor
+                                                      .greyShimmer,
+                                                ),
+                                                leading: IconButton(
+                                                  tooltip:
+                                                  'Edit Choice',
+                                                  icon: const Icon(Icons
+                                                      .edit_note_rounded),
+                                                  onPressed: () async {
+                                                    controller
+                                                        .refreshTextController(
+                                                        controller
+                                                            .options
+                                                            .value);
+                                                    controller
+                                                        .updateIsExtented(
+                                                        isExtented:
+                                                        true,
+                                                        isOptionsDialog: true);
+                                                  },
+                                                ),
+                                                value: '',
+                                                onChanged:
+                                                    (String value) {},
+                                              )
+                                                  : Container(height: 0.001),
+
+                                              Row(
+                                                children: [
+
+                                                  /// IS MANDATORY CHECKBOX
+                                                  Padding(
+                                                    padding:
+                                                    const EdgeInsets.all(8.0),
+                                                    child: Row(
+                                                      children: [
+                                                        const Text(
+                                                          AppConst.isMandatory,
+                                                          style: TextStyle(
+                                                            fontSize: 16,
+                                                            fontWeight:
+                                                            FontWeight.bold,
+                                                          ),
+                                                        ),
+                                                        Checkbox(
+                                                          checkColor:
+                                                          AppColor.black,
+                                                          // focusColor: AppColor.primaryColor,
+                                                          activeColor: AppColor
+                                                              .primaryColor,
+                                                          value: controller
+                                                              .isMandatory
+                                                              .value,
+                                                          onChanged:
+                                                              (bool? value) {
+                                                            controller
+                                                                .isMandatory
+                                                                .value =
+                                                                value ?? false;
+                                                          },
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ),
+
+                                                  /// IS FOLLOW UP
+                                                  Padding(
+                                                    padding:
+                                                    const EdgeInsets.all(8.0),
+                                                    child: Row(
+                                                      children: [
+                                                        const Text(
+                                                          AppConst.isFollowUp,
+                                                          style: TextStyle(
+                                                            fontSize: 16,
+                                                            fontWeight:
+                                                            FontWeight.bold,
+                                                          ),
+                                                        ),
+                                                        Checkbox(
+                                                          checkColor:
+                                                          AppColor.black,
+                                                          // focusColor: AppColor.primaryColor,
+                                                          activeColor: AppColor
+                                                              .primaryColor,
+                                                          value: controller
+                                                              .isFollowUp.value,
+                                                          onChanged:
+                                                              (bool? value) {
+                                                            controller
+                                                                .updateIsFollowUp(
+                                                                value ?? false);
+                                                          },
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ),
+
+                                                  /// IS PREGNANT
+                                                  Padding(
+                                                    padding:
+                                                    const EdgeInsets.all(8.0),
+                                                    child: Row(
+                                                      children: [
+                                                        const Text(
+                                                          AppConst.isPregnant,
+                                                          style: TextStyle(
+                                                            fontSize: 16,
+                                                            fontWeight:
+                                                            FontWeight.bold,
+                                                          ),
+                                                        ),
+                                                        Checkbox(
+                                                          checkColor:
+                                                          AppColor.black,
+                                                          focusColor: AppColor
+                                                              .primaryColor,
+                                                          activeColor: AppColor
+                                                              .primaryColor,
+                                                          value: controller
+                                                              .isPregnancy
+                                                              .value,
+                                                          onChanged: (
+                                                              bool? value) {
+                                                            controller
+                                                                .updateIsPregnancy(
+                                                                value ?? false);
+                                                          },
+                                                        ),
+
+
+                                                      ],
+                                                    ),
+
+
+                                                  ),
+                                                ],
+                                              ),
+
+
+                                              ///flavour Section
+                                              Padding(
+                                                padding: const EdgeInsets.all(
+                                                    8.0),
+                                                child: Column(
+                                                  crossAxisAlignment: CrossAxisAlignment
+                                                      .start,
+                                                  children: [
+                                                    const Text(
+                                                      'Add flavour',
+                                                      style: TextStyle(
+                                                        fontSize: 16,
+                                                        fontWeight: FontWeight
+                                                            .bold,
+                                                      ),
+                                                    ),
+                                                    Column(
+                                                      crossAxisAlignment: CrossAxisAlignment
+                                                          .end,
+                                                      children: controller
+                                                          .clinicalPathwayFlavourCategoriesList
+                                                          .flavourList
+                                                          .map((flavor) =>
+                                                          ExpansionTile(
+                                                            title: Text(flavor),
+                                                            children: [
+                                                              MultipleChipChoice(
+                                                                selectedValues: controller
+                                                                    .selectedGenders
+                                                                    .value,
+                                                                choiceList: controller
+                                                                    .genderGroupStandardList
+                                                                    .value
+                                                                    .genderGroupList,
+                                                                onChanged: (
+                                                                    val) {
+                                                                  controller
+                                                                      .selectedGenders
+                                                                      .value =
+                                                                      val;
+                                                                  controller
+                                                                      .selectedGenders
+                                                                      .value
+                                                                      .removeWhere((
+                                                                      gender) =>
+                                                                  gender
+                                                                      .isEmpty);
+                                                                  // controller.selectedGenders.value = val;
+                                                                },
+                                                                valueFn: (i,
+                                                                    v) => v,
+                                                                labelFn: (i,
+                                                                    v) => v,
+                                                                tooltipFn: (i,
+                                                                    v) => v,
+                                                              ),
+
+                                                              ChipsChoice<
+                                                                  String>.multiple(
+                                                                value: controller
+                                                                    .selectedAges
+                                                                    .value,
+                                                                onChanged: (
+                                                                    val) {
+                                                                  controller
+                                                                      .selectedAges
+                                                                      .value =
+                                                                      val;
+                                                                  controller
+                                                                      .updateListOfAgeGroupItems();
+                                                                },
+                                                                choiceItems: C2Choice
+                                                                    .listFrom<
+                                                                    String,
+                                                                    AgeGroupItem>(
+                                                                  source: controller
+                                                                      .ageGroupItemList,
+                                                                  value: (i,
+                                                                      v) =>
+                                                                  v.groupName!,
+                                                                  label: (i,
+                                                                      v) =>
+                                                                  v.groupName!,
+                                                                  tooltip: (i,
+                                                                      v) =>
+                                                                  "Start :${v
+                                                                      .start}, End :${v
+                                                                      .end}",
+                                                                ),
+                                                                choiceCheckmark: true,
+                                                                choiceStyle: C2ChipStyle
+                                                                    .filled(
+                                                                  overlayColor:
+                                                                  AppColor
+                                                                      .primaryColor,
+                                                                  foregroundStyle:
+                                                                  const TextStyle(
+                                                                      fontWeight:
+                                                                      FontWeight
+                                                                          .w700),
+                                                                  height: ScreenSize
+                                                                      .height(
+                                                                      context) *
+                                                                      0.04,
+                                                                  color: AppColor
+                                                                      .greyShimmer,
+                                                                  selectedStyle:
+                                                                  const C2ChipStyle(
+                                                                    elevation: 2,
+                                                                    backgroundColor:
+                                                                    AppColor
+                                                                        .primaryColor,
+                                                                    borderRadius:
+                                                                    BorderRadius
+                                                                        .all(
+                                                                      Radius
+                                                                          .circular(
+                                                                          25),
+                                                                    ),
+                                                                  ),
+                                                                ),
+                                                              ),
+
+
+                                                              Row(
+                                                                children: [
+
+                                                                  /// IS MANDATORY CHECKBOX
+                                                                  Padding(
+                                                                    padding:
+                                                                    const EdgeInsets
+                                                                        .all(
+                                                                        8.0),
+                                                                    child: Row(
+                                                                      children: [
+                                                                        const Text(
+                                                                          AppConst
+                                                                              .isMandatory,
+                                                                          style: TextStyle(
+                                                                            fontSize: 16,
+                                                                            fontWeight:
+                                                                            FontWeight
+                                                                                .bold,
+                                                                          ),
+                                                                        ),
+                                                                        Checkbox(
+                                                                          checkColor:
+                                                                          AppColor
+                                                                              .black,
+                                                                          // focusColor: AppColor.primaryColor,
+                                                                          activeColor: AppColor
+                                                                              .primaryColor,
+                                                                          value: controller
+                                                                              .isMandatory
+                                                                              .value,
+                                                                          onChanged:
+                                                                              (
+                                                                              bool? value) {
+                                                                            controller
+                                                                                .isMandatory
+                                                                                .value =
+                                                                                value ??
+                                                                                    false;
+                                                                          },
+                                                                        ),
+                                                                      ],
+                                                                    ),
+                                                                  ),
+
+
+                                                                  /// IS FOLLOW UP
+                                                                  Padding(
+                                                                    padding:
+                                                                    const EdgeInsets
+                                                                        .all(
+                                                                        8.0),
+                                                                    child: Row(
+                                                                      children: [
+                                                                        const Text(
+                                                                          AppConst
+                                                                              .isFollowUp,
+                                                                          style: TextStyle(
+                                                                            fontSize: 16,
+                                                                            fontWeight:
+                                                                            FontWeight
+                                                                                .bold,
+                                                                          ),
+                                                                        ),
+                                                                        Checkbox(
+                                                                          checkColor:
+                                                                          AppColor
+                                                                              .black,
+                                                                          // focusColor: AppColor.primaryColor,
+                                                                          activeColor: AppColor
+                                                                              .primaryColor,
+                                                                          value: controller
+                                                                              .isFollowUp
+                                                                              .value,
+                                                                          onChanged:
+                                                                              (
+                                                                              bool? value) {
+                                                                            controller
+                                                                                .updateIsFollowUp(
+                                                                                value ??
+                                                                                    false);
+                                                                          },
+                                                                        ),
+                                                                      ],
+                                                                    ),
+                                                                  ),
+
+                                                                  /// IS PREGNANT
+                                                                  Padding(
+                                                                    padding:
+                                                                    const EdgeInsets
+                                                                        .all(
+                                                                        8.0),
+                                                                    child: Row(
+                                                                      children: [
+                                                                        const Text(
+                                                                          AppConst
+                                                                              .isPregnant,
+                                                                          style: TextStyle(
+                                                                            fontSize: 16,
+                                                                            fontWeight:
+                                                                            FontWeight
+                                                                                .bold,
+                                                                          ),
+                                                                        ),
+                                                                        Checkbox(
+                                                                          checkColor:
+                                                                          AppColor
+                                                                              .black,
+                                                                          focusColor: AppColor
+                                                                              .primaryColor,
+                                                                          activeColor: AppColor
+                                                                              .primaryColor,
+                                                                          value: controller
+                                                                              .isPregnancy
+                                                                              .value,
+                                                                          onChanged: (
+                                                                              bool? value) {
+                                                                            controller
+                                                                                .updateIsPregnancy(
+                                                                                value ??
+                                                                                    false);
+                                                                          },
+                                                                        ),
+                                                                      ],
+                                                                    ),
+                                                                  ),
+                                                                ],
+                                                              ),
+                                                              SizedBox(
+                                                                  height: 30),
+                                                              Container(
+                                                                height: 40,
+                                                                width: 100,
+                                                                child: Column(
+                                                                  crossAxisAlignment: CrossAxisAlignment
+                                                                      .end,
+                                                                  // mainAxisAlignment: MainAxisAlignment.center,
+                                                                  children: [
+                                                                    Row(
+                                                                      mainAxisAlignment: MainAxisAlignment
+                                                                          .start,
+                                                                      children: [
+                                                                        OutlinedButton(
+                                                                          onPressed: () {
+                                                                            controller
+                                                                                .updateDataInFirestore(
+                                                                                'adk');
+                                                                          },
+                                                                          child: Text(
+                                                                              "Submit ADK Data"),
+                                                                        ),
+                                                                        SizedBox(
+                                                                          width: 10,),
+                                                                        OutlinedButton(
+                                                                          onPressed: () {
+                                                                            //  controller. updateAAMCDataInFirestore();
+                                                                          },
+                                                                          child: Text(
+                                                                              "Submit AAMC Data"),
+                                                                        ),
+                                                                        // SizedBox(width: 10,),
+                                                                        // OutlinedButton(
+                                                                        //   onPressed: () {
+                                                                        //     //  controller. updateAAMCDataInFirestore();
+                                                                        //   },
+                                                                        //   child: Text("Submit AAMC Data"),
+                                                                        // ),
+                                                                      ],
+                                                                    ),
+                                                                  ],
+                                                                ),
+                                                              ),
+
+                                                            ],
+                                                          ))
+                                                          .toList(),
+                                                    ),
+                                                  ],
+                                                ),
+                                              ),
+
+                                              Container(
+                                                height: 0.0001,
+                                              ),
+                                            ],
+                                          )),
                                     ],
                                   ),
                                 ),
                               )),
+
+
+                          /// Second method for flavour / pop up method
+                          Container(
+                            height: 40,
+                            width: 80,
+                            decoration: BoxDecoration(borderRadius: BorderRadius
+                                .circular(20),
+                                border: Border.all(
+                                  color: Colors.green,
+                                )),
+                            child: TextButton(
+                              child: const Text('Flavour'),
+                              onPressed: () async {
+                                bool? result = await showAddFlavourDialog(
+                                    context);
+                                if (result == true) {
+                                  // User clicked OK, perform the desired action
+                                  // Add the flavor logic here
+                                }
+                              },
+                            ),
+                          ),
+
 
                           ///FOOTER
                           Expanded(
                             flex: 13,
                             child:
 
-                                /// BUTTONS CREATE AND CANCEL
-                                Column(
+                            /// BUTTONS CREATE AND CANCEL
+                            Column(
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: [
                                 SizedBox(
@@ -1344,26 +1571,28 @@ class EndDrawerForAddElement extends GetWidget<HomeController> {
                                       color: AppColor.primaryColor,
                                     )),
                                 Obx(
-                                  () => Padding(
-                                    padding: const EdgeInsets.only(bottom: 8.0),
-                                    child: AutoSizeText(
-                                      controller.errorMessage.value,
-                                      style:
+                                      () =>
+                                      Padding(
+                                        padding: const EdgeInsets.only(
+                                            bottom: 8.0),
+                                        child: AutoSizeText(
+                                          controller.errorMessage.value,
+                                          style:
                                           AppThemes.textErrorMessageFontTheme,
-                                    ),
-                                  ),
+                                        ),
+                                      ),
                                 ),
                                 SizedBox(
                                   width: ScreenSize.width(context) * 0.5,
                                   child: Row(
                                     mainAxisAlignment:
-                                        MainAxisAlignment.spaceEvenly,
+                                    MainAxisAlignment.spaceEvenly,
                                     children: [
                                       SizedBox(
                                         width: ScreenSize.width(context) * 0.1,
                                         child: AppButton(
                                           height:
-                                              ScreenSize.height(context) * 0.05,
+                                          ScreenSize.height(context) * 0.05,
                                           buttonText: AppConst.cancel,
                                           buttonColor: AppColor.tertiaryColor,
                                           onTap: () {
@@ -1375,11 +1604,11 @@ class EndDrawerForAddElement extends GetWidget<HomeController> {
                                         width: ScreenSize.width(context) * 0.1,
                                         child: AppButton(
                                           height:
-                                              ScreenSize.height(context) * 0.05,
+                                          ScreenSize.height(context) * 0.05,
                                           buttonText:
-                                              controller.isNewElement.value
-                                                  ? AppConst.create
-                                                  : AppConst.update,
+                                          controller.isNewElement.value
+                                              ? AppConst.create
+                                              : AppConst.update,
                                           onTap: () {
                                             controller.updateAndCreateButton();
                                           },
@@ -1404,20 +1633,254 @@ class EndDrawerForAddElement extends GetWidget<HomeController> {
   Future<bool?> showConfirmationDialog(BuildContext context) async {
     return await showDialog<bool>(
       context: context,
-      builder: (context) => AlertDialog(
-        title: const Text('Confirm Removal'),
-        content: const Text('Are you sure you want to remove this item?'),
-        actions: [
-          TextButton(
-            child: const Text('Cancel'),
-            onPressed: () => Navigator.pop(context, false),
+      builder: (context) =>
+          AlertDialog(
+            title: const Text('Confirm Removal'),
+            content: const Text('Are you sure you want to remove this item?'),
+            actions: [
+              TextButton(
+                child: const Text('Cancel'),
+                onPressed: () => Navigator.pop(context, false),
+              ),
+              TextButton(
+                child: const Text('OK'),
+                onPressed: () => Navigator.pop(context, true),
+              ),
+            ],
           ),
-          TextButton(
-            child: const Text('OK'),
-            onPressed: () => Navigator.pop(context, true),
-          ),
-        ],
-      ),
     );
   }
+
+
+  ///DIALOG BOX FOR ADD FLAVOUR SECTION IN FLOWCHART:-
+  Future<bool?> showAddFlavourDialog(BuildContext context) async {
+    return await showDialog<bool>(
+      context: context,
+      builder: (context) =>
+          AlertDialog(
+            title: Container(
+              height: 40,
+              width: 400,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(200),
+                border: Border.all(
+                  color: Colors.green,
+                ),
+              ),
+              child: Center(
+                child: const Text('Add Flavour'),
+              ),
+            ),
+            content: Column(
+
+              children: [
+              ],
+            ),
+            actions: [
+
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.end,
+                children: controller.clinicalPathwayFlavourCategoriesList.flavourList.map((flavor) {
+                  // Define separate lists for ADK and AAMC data
+                  List<String> selectedADKValues = controller.selectedGenders.value;
+                  List<String> selectedAAMCValues = controller.selectedAges.value;
+
+                  return ExpansionTile(
+                    title: Text(flavor),
+                    children: [
+                      MultipleChipChoice(
+                        selectedValues: selectedADKValues,
+                        choiceList: controller.genderGroupStandardList.value.genderGroupList,
+                        onChanged: (val) {
+                          selectedADKValues = val; // Update the ADK list
+                          controller.selectedGenders.value.removeWhere((gender) => gender.isEmpty);
+                        },
+                        valueFn: (i, v) => v,
+                        labelFn: (i, v) => v,
+                        tooltipFn: (i, v) => v,
+                      ),
+
+                      ChipsChoice<String>.multiple(
+                        value: selectedAAMCValues,
+                        onChanged: (val) {
+                          selectedAAMCValues = val; // Update the AAMC list
+                          controller.updateListOfAgeGroupItems();
+                        },
+                        choiceItems: C2Choice.listFrom<String, AgeGroupItem>(
+                          source: controller.ageGroupItemList,
+                          value: (i, v) => v.groupName!,
+                          label: (i, v) => v.groupName!,
+                          tooltip: (i, v) => "Start :${v.start}, End :${v.end}",
+                        ),
+                        choiceCheckmark: true,
+                        choiceStyle: C2ChipStyle.filled(
+                          overlayColor: AppColor.primaryColor,
+                          foregroundStyle: const TextStyle(fontWeight: FontWeight.w700),
+                          height: ScreenSize.height(context) * 0.04,
+                          color: AppColor.greyShimmer,
+                          selectedStyle: const C2ChipStyle(
+                            elevation: 2,
+                            backgroundColor: AppColor.primaryColor,
+                            borderRadius: BorderRadius.all(
+                              Radius.circular(25),
+                            ),
+                          ),
+                        ),
+                      ),
+
+
+
+                      Row(
+                      children: [
+
+                        /// IS MANDATORY CHECKBOX
+                        Padding(
+                          padding:
+                          const EdgeInsets.all(8.0),
+                          child: Row(
+                            children: [
+                              const Text(
+                                AppConst.isMandatory,
+                                style: TextStyle(
+                                  fontSize: 16,
+                                  fontWeight:
+                                  FontWeight.bold,
+                                ),
+                              ),
+                              Checkbox(
+                                checkColor:
+                                AppColor.black,
+                                // focusColor: AppColor.primaryColor,
+                                activeColor: AppColor
+                                    .primaryColor,
+                                value: controller
+                                    .isMandatory.value,
+                                onChanged:
+                                    (bool? value) {
+                                  controller.isMandatory
+                                      .value =
+                                      value ?? false;
+                                },
+                              ),
+                            ],
+                          ),
+                        ),
+
+
+                        /// IS FOLLOW UP
+                        Padding(
+                          padding:
+                          const EdgeInsets.all(8.0),
+                          child: Row(
+                            children: [
+                              const Text(
+                                AppConst.isFollowUp,
+                                style: TextStyle(
+                                  fontSize: 16,
+                                  fontWeight:
+                                  FontWeight.bold,
+                                ),
+                              ),
+                              Checkbox(
+                                checkColor:
+                                AppColor.black,
+                                // focusColor: AppColor.primaryColor,
+                                activeColor: AppColor
+                                    .primaryColor,
+                                value: controller
+                                    .isFollowUp.value,
+                                onChanged:
+                                    (bool? value) {
+                                  controller.updateIsFollowUp(
+                                      value ?? false);
+                                },
+                              ),
+                            ],
+                          ),
+                        ),
+                        /// IS PREGNANT
+                        Padding(
+                          padding:
+                          const EdgeInsets.all(8.0),
+                          child: Row(
+                            children: [
+                              const Text(
+                                AppConst.isPregnant,
+                                style: TextStyle(
+                                  fontSize: 16,
+                                  fontWeight:
+                                  FontWeight.bold,
+                                ),
+                              ),
+                              Checkbox(
+                                checkColor:
+                                AppColor.black,
+                                focusColor: AppColor.primaryColor,
+                                activeColor: AppColor.primaryColor,
+                                value: controller.isPregnancy.value,
+                                onChanged: (bool? value) {
+                                  controller.updateIsPregnancy(
+                                      value ?? false);
+                                },
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                    SizedBox(height: 30),
+                    Container(
+                      height: 40,
+                      width: 100,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.end,
+                        // mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              OutlinedButton(
+                                onPressed: () {
+                                  controller.updateDataInFirestore('adk');
+                                },
+                                child: Text("Submit"),
+                              ),
+                              // SizedBox(width: 10,),
+                              // OutlinedButton(
+                              //   onPressed: () {
+                              //     //  controller. updateAAMCDataInFirestore();
+                              //   },
+                              //   child: Text("Submit AAMC Data"),
+                              // ),
+                              // SizedBox(width: 10,),
+                              // OutlinedButton(
+                              //   onPressed: () {
+                              //     //  controller. updateAAMCDataInFirestore();
+                              //   },
+                              //   child: Text("Submit AAMC Data"),
+                              // ),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
+
+                  ],
+                );
+
+              }
+    )
+                    .toList(),
+              ),
+
+
+            ],
+          ) );
+
+
+
+      //
+
+  }
+
 }

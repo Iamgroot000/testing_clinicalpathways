@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:testing_clinicalpathways/domain/entities/ageGroupVariables.dart';
 import 'package:testing_clinicalpathways/domain/entities/clinicalPathwayCategoriesEntity.dart';
+import 'package:testing_clinicalpathways/domain/entities/clinicalPathwayFlavourCategories.dart';
 import 'package:testing_clinicalpathways/domain/entities/flowChartEntities/getFlowChartEntitiesConnector.dart';
 import 'package:testing_clinicalpathways/domain/entities/genderGroupsStandard.dart';
 import 'package:testing_clinicalpathways/presentation/views/presentationLayerConnectors.dart';
@@ -34,7 +35,11 @@ class DashboardEntity {
   ClinicalPathwayFlavourCategoriesItem? clinicalPathwayFlavourCategoriesItem;
   GenderGroupStandardItem? genderGroupStandardItem;
   List<AgeGroupItem>? ageGroupItemList;
+  //Gaurav Edit
+  List<FlavourItem>? flavourItemList;
 
+
+  // required FlavourItem flavourItemList
   DashboardEntity({
     required this.flowchartId,
     required this.flowchartName,
@@ -47,6 +52,8 @@ class DashboardEntity {
     this.clinicalPathwayFlavourCategoriesItem,
     this.genderGroupStandardItem,
     this.ageGroupItemList,
+    //Gaurav edit
+    this.flavourItemList
   });
 
   factory DashboardEntity.fromJson(Map<String, dynamic> json) {

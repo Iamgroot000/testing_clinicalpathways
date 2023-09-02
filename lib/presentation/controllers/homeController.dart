@@ -539,15 +539,12 @@ class HomeController extends GetxController {
 
 
 
-    List<FlavourItem> flavours = [];
-    for (FlavourItem flavour in flavourItemList) {
-      for (String groupName in selectedAges.value) {
-        if (flavour.groupName == groupName) {
-          flavours.add(flavour);
-        }
-      }
-      print("FlavoursList : $flavours");
-    }
+    List<FlavourItem> flavours = [FlavourItem(isMandatory: true,
+        appFlavour: "ADK",
+        genders: ['male','female'],
+        ageGroups: [AgeGroupItem(groupName: 'test', start: 0.01, end: 12, priority: 0)])];
+
+    debugPrint("test: flavourItem. update  : ${flavours[0].toJson()}");
 
 
     /// CREATE A NEW ELEMENT
@@ -605,6 +602,13 @@ class HomeController extends GetxController {
         dashboard.elements[elementIndex] = existingElement;
         dashboard.refreshUi();
       }
+    }
+
+    debugPrint("test: flavourItem.fromJson :");
+    try {
+      FlavourItem.fromJson(flavours[0].toJson());
+    }catch (e) {
+      debugPrint("test: FlavorItemListFromJson failed ${e.toString()}");
     }
   }
 
@@ -1081,7 +1085,7 @@ class HomeController extends GetxController {
     update();
   }
 
-/// function - saving flavour list data
+  /// function - saving flavour list data
   Future<void> updateDataInFirestore(String flavorListName) async {
     try {
       CollectionReference collectionRef = FirebaseFirestore.instance.collection('adkCollection');
@@ -1106,30 +1110,30 @@ class HomeController extends GetxController {
 
 
 
-  /// function for saving aamc data
+/// function for saving aamc data
 
-  // Future<void> updateAAMCDataInFirestore() async {
-  //   try {
-  //     CollectionReference collectionRef = FirebaseFirestore.instance.collection('adkCollection');
-  //
-  //     Map<String, dynamic> aamcData = {
-  //       'age': selectedAges.value,
-  //       'gender': selectedGenders.value,
-  //       'isMandatory': isMandatory.value,
-  //     };
-  //
-  //     await collectionRef.doc('122279').set({
-  //       'elements': FieldValue.arrayUnion([
-  //         {'aamc': aamcData},
-  //       ]),
-  //     }, SetOptions(merge: true));
-  //
-  //     print('AAMC data updated in Firestore successfully at index 1 with document ID 23456.');
-  //   } catch (e) {
-  //     print('Error updating AAMC data in Firestore: $e');
-  //   }
-  // }
-  //
+// Future<void> updateAAMCDataInFirestore() async {
+//   try {
+//     CollectionReference collectionRef = FirebaseFirestore.instance.collection('adkCollection');
+//
+//     Map<String, dynamic> aamcData = {
+//       'age': selectedAges.value,
+//       'gender': selectedGenders.value,
+//       'isMandatory': isMandatory.value,
+//     };
+//
+//     await collectionRef.doc('122279').set({
+//       'elements': FieldValue.arrayUnion([
+//         {'aamc': aamcData},
+//       ]),
+//     }, SetOptions(merge: true));
+//
+//     print('AAMC data updated in Firestore successfully at index 1 with document ID 23456.');
+//   } catch (e) {
+//     print('Error updating AAMC data in Firestore: $e');
+//   }
+// }
+//
 
 
 
