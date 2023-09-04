@@ -2018,34 +2018,32 @@ class EndDrawerForAddElement extends GetWidget<HomeController> {
         ));
 
 
-    }
-
-
-
-    }
-
-
-  ///DIALOG BOX FOR CONFORMATION WHILE REMOVING AGE GROUP
-  Future<bool?> showConfirmationDialog(BuildContext context) async {
-    return await showDialog<bool>(
-      context: context,
-      builder: (context) =>
-          AlertDialog(
-            title: const Text('Confirm Removal'),
-            content: const Text('Are you sure you want to remove this item?'),
-            actions: [
-              TextButton(
-                child: const Text('Cancel'),
-                onPressed: () => Navigator.pop(context, false),
-              ),
-              TextButton(
-                child: const Text('OK'),
-                onPressed: () => Navigator.pop(context, true),
-              ),
-            ],
-          ),
-    );
   }
+
+}
+
+
+///DIALOG BOX FOR CONFORMATION WHILE REMOVING AGE GROUP
+Future<bool?> showConfirmationDialog(BuildContext context) async {
+  return await showDialog<bool>(
+    context: context,
+    builder: (context) =>
+        AlertDialog(
+          title: const Text('Confirm Removal'),
+          content: const Text('Are you sure you want to remove this item?'),
+          actions: [
+            TextButton(
+              child: const Text('Cancel'),
+              onPressed: () => Navigator.pop(context, false),
+            ),
+            TextButton(
+              child: const Text('OK'),
+              onPressed: () => Navigator.pop(context, true),
+            ),
+          ],
+        ),
+  );
+}
 
 
 //   ///DIALOG BOX FOR ADD FLAVOUR SECTION IN FLOWCHART:-
