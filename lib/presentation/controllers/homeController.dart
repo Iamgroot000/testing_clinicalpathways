@@ -11,6 +11,7 @@ import 'package:testing_clinicalpathways/presentation/views/presentationLayerCon
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class HomeController extends GetxController {
+
   /// FIREBASE INSTANCE IN THE HOME SCREEN
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 

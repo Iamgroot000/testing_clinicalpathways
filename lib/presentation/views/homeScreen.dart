@@ -165,7 +165,7 @@ class HomeScreen extends GetView<HomeController> {
       ),
       endDrawer: Obx(() => controller.endDrawerType.value.isNotEmpty
           ? endDrawer()
-          : const EndDrawerForAddElement()
+          :  EndDrawerForAddElement()
       ),
       // endDrawer: EndDrawer(),
     );
@@ -178,7 +178,7 @@ class HomeScreen extends GetView<HomeController> {
       case AppConst.dashboard:
         return EndDrawer();
       default:
-        return const EndDrawerForAddElement();
+        return  EndDrawerForAddElement();
     }
   }
   /// Display a drop down menu when tapping on a handler
