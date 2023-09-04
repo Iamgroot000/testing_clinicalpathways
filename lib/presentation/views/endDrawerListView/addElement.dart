@@ -17,7 +17,7 @@ class EndDrawerForAddElement extends GetWidget<HomeController> {
 
   @override
   Widget build(BuildContext context) {
-    int currentIndex = 0;
+
     return Obx(() =>
         Drawer(
           width: (controller.isExtended.value)
@@ -102,6 +102,7 @@ class EndDrawerForAddElement extends GetWidget<HomeController> {
                                       ),
                                     ),
                                   ),
+
 
                                   /// ADD ELEMENT
                                   SizedBox(
@@ -1254,7 +1255,6 @@ class EndDrawerForAddElement extends GetWidget<HomeController> {
                                                               .flavourList[0]),
                                                           IconButton(
                                                               onPressed: () {
-
                                                               },
                                                               icon: Icon(Icons
                                                                   .navigate_next)),
@@ -2016,7 +2016,15 @@ class EndDrawerForAddElement extends GetWidget<HomeController> {
             ],
           ),
         ));
-  }
+
+
+    }
+
+
+
+    }
+
+
 
 
   ///DIALOG BOX FOR CONFORMATION WHILE REMOVING AGE GROUP
@@ -2278,4 +2286,6 @@ class EndDrawerForAddElement extends GetWidget<HomeController> {
 // }
 //
 
-}
+
+
+
