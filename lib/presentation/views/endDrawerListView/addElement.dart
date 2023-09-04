@@ -1655,232 +1655,235 @@ class EndDrawerForAddElement extends GetWidget<HomeController> {
   ///DIALOG BOX FOR ADD FLAVOUR SECTION IN FLOWCHART:-
   Future<bool?> showAddFlavourDialog(BuildContext context) async {
     return await showDialog<bool>(
-      context: context,
-      builder: (context) =>
-          AlertDialog(
-            title: Container(
-              height: 40,
-              width: 400,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(200),
-                border: Border.all(
-                  color: Colors.green,
+        context: context,
+        builder: (context) =>
+            AlertDialog(
+              title: Container(
+                height: 40,
+                width: 400,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(200),
+                  border: Border.all(
+                    color: Colors.green,
+                  ),
+                ),
+                child: Center(
+                  child: const Text('Add Flavour'),
                 ),
               ),
-              child: Center(
-                child: const Text('Add Flavour'),
+              content: Column(
+
+                children: [
+                ],
               ),
-            ),
-            content: Column(
+              actions: [
 
-              children: [
-              ],
-            ),
-            actions: [
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  children: controller.clinicalPathwayFlavourCategoriesList
+                      .flavourList.map((flavor) {
+                    // Define separate lists for ADK and AAMC data
+                    List<String> selectedADKValues = controller.selectedGenders
+                        .value;
+                    List<String> selectedAAMCValues = controller.selectedAges
+                        .value;
 
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.end,
-                children: controller.clinicalPathwayFlavourCategoriesList.flavourList.map((flavor) {
-                  // Define separate lists for ADK and AAMC data
-                  List<String> selectedADKValues = controller.selectedGenders.value;
-                  List<String> selectedAAMCValues = controller.selectedAges.value;
-
-                  return ExpansionTile(
-                    title: Text(flavor),
-                    children: [
-                      MultipleChipChoice(
-                        selectedValues: selectedADKValues,
-                        choiceList: controller.genderGroupStandardList.value.genderGroupList,
-                        onChanged: (val) {
-                          selectedADKValues = val; // Update the ADK list
-                          controller.selectedGenders.value.removeWhere((gender) => gender.isEmpty);
-                        },
-                        valueFn: (i, v) => v,
-                        labelFn: (i, v) => v,
-                        tooltipFn: (i, v) => v,
-                      ),
-
-                      ChipsChoice<String>.multiple(
-                        value: selectedAAMCValues,
-                        onChanged: (val) {
-                          selectedAAMCValues = val; // Update the AAMC list
-                          controller.updateListOfAgeGroupItems();
-                        },
-                        choiceItems: C2Choice.listFrom<String, AgeGroupItem>(
-                          source: controller.ageGroupItemList,
-                          value: (i, v) => v.groupName!,
-                          label: (i, v) => v.groupName!,
-                          tooltip: (i, v) => "Start :${v.start}, End :${v.end}",
+                    return ExpansionTile(
+                      title: Text(flavor),
+                      children: [
+                        MultipleChipChoice(
+                          selectedValues: selectedADKValues,
+                          choiceList: controller.genderGroupStandardList.value
+                              .genderGroupList,
+                          onChanged: (val) {
+                            selectedADKValues = val; // Update the ADK list
+                            controller.selectedGenders.value.removeWhere((
+                                gender) => gender.isEmpty);
+                          },
+                          valueFn: (i, v) => v,
+                          labelFn: (i, v) => v,
+                          tooltipFn: (i, v) => v,
                         ),
-                        choiceCheckmark: true,
-                        choiceStyle: C2ChipStyle.filled(
-                          overlayColor: AppColor.primaryColor,
-                          foregroundStyle: const TextStyle(fontWeight: FontWeight.w700),
-                          height: ScreenSize.height(context) * 0.04,
-                          color: AppColor.greyShimmer,
-                          selectedStyle: const C2ChipStyle(
-                            elevation: 2,
-                            backgroundColor: AppColor.primaryColor,
-                            borderRadius: BorderRadius.all(
-                              Radius.circular(25),
+
+                        ChipsChoice<String>.multiple(
+                          value: selectedAAMCValues,
+                          onChanged: (val) {
+                            selectedAAMCValues = val; // Update the AAMC list
+                            controller.updateListOfAgeGroupItems();
+                          },
+                          choiceItems: C2Choice.listFrom<String, AgeGroupItem>(
+                            source: controller.ageGroupItemList,
+                            value: (i, v) => v.groupName!,
+                            label: (i, v) => v.groupName!,
+                            tooltip: (i, v) => "Start :${v.start}, End :${v
+                                .end}",
+                          ),
+                          choiceCheckmark: true,
+                          choiceStyle: C2ChipStyle.filled(
+                            overlayColor: AppColor.primaryColor,
+                            foregroundStyle: const TextStyle(
+                                fontWeight: FontWeight.w700),
+                            height: ScreenSize.height(context) * 0.04,
+                            color: AppColor.greyShimmer,
+                            selectedStyle: const C2ChipStyle(
+                              elevation: 2,
+                              backgroundColor: AppColor.primaryColor,
+                              borderRadius: BorderRadius.all(
+                                Radius.circular(25),
+                              ),
                             ),
                           ),
                         ),
-                      ),
 
 
+                        Row(
+                          children: [
 
-                      Row(
-                      children: [
-
-                        /// IS MANDATORY CHECKBOX
-                        Padding(
-                          padding:
-                          const EdgeInsets.all(8.0),
-                          child: Row(
-                            children: [
-                              const Text(
-                                AppConst.isMandatory,
-                                style: TextStyle(
-                                  fontSize: 16,
-                                  fontWeight:
-                                  FontWeight.bold,
-                                ),
+                            /// IS MANDATORY CHECKBOX
+                            Padding(
+                              padding:
+                              const EdgeInsets.all(8.0),
+                              child: Row(
+                                children: [
+                                  const Text(
+                                    AppConst.isMandatory,
+                                    style: TextStyle(
+                                      fontSize: 16,
+                                      fontWeight:
+                                      FontWeight.bold,
+                                    ),
+                                  ),
+                                  Checkbox(
+                                    checkColor:
+                                    AppColor.black,
+                                    // focusColor: AppColor.primaryColor,
+                                    activeColor: AppColor
+                                        .primaryColor,
+                                    value: controller
+                                        .isMandatory.value,
+                                    onChanged:
+                                        (bool? value) {
+                                      controller.isMandatory
+                                          .value =
+                                          value ?? false;
+                                    },
+                                  ),
+                                ],
                               ),
-                              Checkbox(
-                                checkColor:
-                                AppColor.black,
-                                // focusColor: AppColor.primaryColor,
-                                activeColor: AppColor
-                                    .primaryColor,
-                                value: controller
-                                    .isMandatory.value,
-                                onChanged:
-                                    (bool? value) {
-                                  controller.isMandatory
-                                      .value =
-                                      value ?? false;
-                                },
+                            ),
+
+
+                            /// IS FOLLOW UP
+                            Padding(
+                              padding:
+                              const EdgeInsets.all(8.0),
+                              child: Row(
+                                children: [
+                                  const Text(
+                                    AppConst.isFollowUp,
+                                    style: TextStyle(
+                                      fontSize: 16,
+                                      fontWeight:
+                                      FontWeight.bold,
+                                    ),
+                                  ),
+                                  Checkbox(
+                                    checkColor:
+                                    AppColor.black,
+                                    // focusColor: AppColor.primaryColor,
+                                    activeColor: AppColor
+                                        .primaryColor,
+                                    value: controller
+                                        .isFollowUp.value,
+                                    onChanged:
+                                        (bool? value) {
+                                      controller.updateIsFollowUp(
+                                          value ?? false);
+                                    },
+                                  ),
+                                ],
+                              ),
+                            ),
+
+                            /// IS PREGNANT
+                            Padding(
+                              padding:
+                              const EdgeInsets.all(8.0),
+                              child: Row(
+                                children: [
+                                  const Text(
+                                    AppConst.isPregnant,
+                                    style: TextStyle(
+                                      fontSize: 16,
+                                      fontWeight:
+                                      FontWeight.bold,
+                                    ),
+                                  ),
+                                  Checkbox(
+                                    checkColor:
+                                    AppColor.black,
+                                    focusColor: AppColor.primaryColor,
+                                    activeColor: AppColor.primaryColor,
+                                    value: controller.isPregnancy.value,
+                                    onChanged: (bool? value) {
+                                      controller.updateIsPregnancy(
+                                          value ?? false);
+                                    },
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                        SizedBox(height: 30),
+                        Container(
+                          height: 40,
+                          width: 100,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.end,
+                            // mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: [
+                                  OutlinedButton(
+                                    onPressed: () {
+                                      controller.updateDataInFirestore('adk');
+                                    },
+                                    child: Text("Submit"),
+                                  ),
+                                  // SizedBox(width: 10,),
+                                  // OutlinedButton(
+                                  //   onPressed: () {
+                                  //     //  controller. updateAAMCDataInFirestore();
+                                  //   },
+                                  //   child: Text("Submit AAMC Data"),
+                                  // ),
+                                  // SizedBox(width: 10,),
+                                  // OutlinedButton(
+                                  //   onPressed: () {
+                                  //     //  controller. updateAAMCDataInFirestore();
+                                  //   },
+                                  //   child: Text("Submit AAMC Data"),
+                                  // ),
+                                ],
                               ),
                             ],
                           ),
                         ),
 
-
-                        /// IS FOLLOW UP
-                        Padding(
-                          padding:
-                          const EdgeInsets.all(8.0),
-                          child: Row(
-                            children: [
-                              const Text(
-                                AppConst.isFollowUp,
-                                style: TextStyle(
-                                  fontSize: 16,
-                                  fontWeight:
-                                  FontWeight.bold,
-                                ),
-                              ),
-                              Checkbox(
-                                checkColor:
-                                AppColor.black,
-                                // focusColor: AppColor.primaryColor,
-                                activeColor: AppColor
-                                    .primaryColor,
-                                value: controller
-                                    .isFollowUp.value,
-                                onChanged:
-                                    (bool? value) {
-                                  controller.updateIsFollowUp(
-                                      value ?? false);
-                                },
-                              ),
-                            ],
-                          ),
-                        ),
-                        /// IS PREGNANT
-                        Padding(
-                          padding:
-                          const EdgeInsets.all(8.0),
-                          child: Row(
-                            children: [
-                              const Text(
-                                AppConst.isPregnant,
-                                style: TextStyle(
-                                  fontSize: 16,
-                                  fontWeight:
-                                  FontWeight.bold,
-                                ),
-                              ),
-                              Checkbox(
-                                checkColor:
-                                AppColor.black,
-                                focusColor: AppColor.primaryColor,
-                                activeColor: AppColor.primaryColor,
-                                value: controller.isPregnancy.value,
-                                onChanged: (bool? value) {
-                                  controller.updateIsPregnancy(
-                                      value ?? false);
-                                },
-                              ),
-                            ],
-                          ),
-                        ),
                       ],
-                    ),
-                    SizedBox(height: 30),
-                    Container(
-                      height: 40,
-                      width: 100,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.end,
-                        // mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
-                              OutlinedButton(
-                                onPressed: () {
-                                  controller.updateDataInFirestore('adk');
-                                },
-                                child: Text("Submit"),
-                              ),
-                              // SizedBox(width: 10,),
-                              // OutlinedButton(
-                              //   onPressed: () {
-                              //     //  controller. updateAAMCDataInFirestore();
-                              //   },
-                              //   child: Text("Submit AAMC Data"),
-                              // ),
-                              // SizedBox(width: 10,),
-                              // OutlinedButton(
-                              //   onPressed: () {
-                              //     //  controller. updateAAMCDataInFirestore();
-                              //   },
-                              //   child: Text("Submit AAMC Data"),
-                              // ),
-                            ],
-                          ),
-                        ],
-                      ),
-                    ),
-
-                  ],
-                );
-
-              }
-    )
-                    .toList(),
-              ),
+                    );
+                  }
+                  )
+                      .toList(),
+                ),
 
 
-            ],
-          ) );
-
-
-
-      //
-
+              ],
+            ));
   }
 
+
 }
+
