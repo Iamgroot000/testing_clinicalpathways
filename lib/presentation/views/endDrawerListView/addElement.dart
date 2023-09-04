@@ -13,7 +13,12 @@ import 'package:testing_clinicalpathways/presentation/widgets/chipChoiceSingle.d
 
 /// ADD ELEMENT END DRAWER WITH -----------> (SHAPES, CATEGORIES, GENDER, IS_MANDATORY, EDIT QUESTIONS)
 class EndDrawerForAddElement extends GetWidget<HomeController> {
-  const EndDrawerForAddElement({super.key});
+  bool isSelectedAge = false;
+  bool isSelectedGender = false;
+  bool isSelectedMandatory = false;
+  bool isSelectedADK = false;
+  bool isSelectedAMMC = false;
+   EndDrawerForAddElement({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -1220,50 +1225,105 @@ class EndDrawerForAddElement extends GetWidget<HomeController> {
 
 
                                               ///flavour Section
-                                              Padding(
-                                                padding: const EdgeInsets.all(
-                                                    8.0),
-                                                child: Container(
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    "Flavors",
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.black,
+                                      fontSize: 20,
+                                    ),
+                                  ),
+                                  SizedBox(height: 10),
+                                  SizedBox(height: 10),
+                                  Row(
+                                    children: [
 
-                                                  child: Column(
-                                                    crossAxisAlignment: CrossAxisAlignment
-                                                        .start,
-                                                    mainAxisAlignment: MainAxisAlignment
-                                                        .start,
-                                                    children: [
-                                                      Text("Flavors",
-                                                        style: TextStyle(
-                                                          fontWeight: FontWeight
-                                                              .bold,
-                                                          color: Colors.black,
-                                                          fontSize: 20,),),
-                                                      SizedBox(height: 1,),
-                                                      Row(
-                                                        mainAxisAlignment: MainAxisAlignment
-                                                            .spaceEvenly,
-                                                        children: [
-                                                          Container(
-                                                            child: IconButton(
-                                                                onPressed: () {
+                                    Container(
+                                    height: 40,
+                                    width: 80,
+                                    decoration: BoxDecoration(
+                                      border: Border.all(color: Colors.green),
+                                      borderRadius: BorderRadius.circular(10),
+                                      color: isSelectedADK ? Colors.green : Colors.white,
+                                    ),
+                                    child: GestureDetector(
+                                      onTap: () {
+                                        if (!isSelectedADK) {
+                                          isSelectedADK = true;
+                                          isSelectedAMMC = false;
+                                          isSelectedGender = true; // Select age, gender, and isMandatory for ADK
+                                          isSelectedAge = true;
+                                          isSelectedMandatory = true;
+                                        }
+                                      },
+                                      child: Container(
+                                        padding: EdgeInsets.all(10),
+                                        child: Center(child: Text("adk")),
+                                      ),
+                                    ),
+                                  ),
+                                SizedBox(width: 10),
+                                Container(
+                                  height: 40,
+                                  width: 80,
+                                  decoration: BoxDecoration(
+                                    border: Border.all(color: Colors.green),
+                                    borderRadius: BorderRadius.circular(10),
+                                    color: isSelectedAMMC ? Colors.green : Colors.white,
+                                  ),
+                                  child: GestureDetector(
+                                    onTap: () {
+                                      if (!isSelectedAMMC) {
+                                        isSelectedAMMC = true;
+                                        isSelectedADK = false;
+                                        isSelectedGender = false; // Unselect age, gender, and isMandatory for AMMC
+                                        isSelectedAge = false;
+                                        isSelectedMandatory = false;
+                                      }
+                                    },
+                                    child: Container(
+                                      padding: EdgeInsets.all(10),
+                                      child: Text("ammc"),
+                                    ),
+                                  ),
+                                ),
 
-                                                                },
-                                                                icon: Icon(Icons
-                                                                    .navigate_before)),
-                                                          ),
-                                                          Text(controller
-                                                              .clinicalPathwayFlavourCategoriesList
-                                                              .flavourList[0]),
-                                                          IconButton(
-                                                              onPressed: () {
-                                                              },
-                                                              icon: Icon(Icons
-                                                                  .navigate_next)),
 
-                                                        ],
-                                                      ),
+                                      // SizedBox(width: 10),
+                                      // Container(
+                                      //   height: 40,
+                                      //   width: 80,
+                                      //   decoration: BoxDecoration(
+                                      //     border: Border.all(color: Colors.green),
+                                      //     borderRadius: BorderRadius.circular(10),
+                                      //     color: isSelectedMandatory ? Colors.green : Colors.white,
+                                      //   ),
+                                        // child: GestureDetector(
+                                        //   onTap: () {
+                                        //     if (!isSelectedMandatory) {
+                                        //       isSelectedMandatory = true;
+                                        //       isSelectedADK = false;
+                                        //       isSelectedAMMC = false;
+                                        //       isSelectedGender = true; // Select age and gender for Mandatory
+                                        //       isSelectedAge = true;
+                                        //     }
+                                        //   },
+                                        //   child: Container(
+                                        //     padding: EdgeInsets.all(10),
+                                        //     child: Center(child: Text("HBT")),
+                                        //   ),
+                                        // ),
 
 
-                                                      SizedBox(height: 1,),
+                                    ],
+                                  ),
+                                  SizedBox(height: 1,),
 
                                                       /// GENDER
                                                       Padding(
@@ -1909,7 +1969,7 @@ class EndDrawerForAddElement extends GetWidget<HomeController> {
                                                 //     ),
                                                 //   ],
                                                 // ),
-                                              ),
+
 
                                               Container(
                                                 height: 0.0001,
